@@ -1,5 +1,5 @@
 class H5PlayerSplit(object):
-    def __self__(self):
+    def __init__(self):
         self.name = 'H5'
 
     def run(self,items):

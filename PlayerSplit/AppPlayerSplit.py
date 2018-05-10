@@ -1,5 +1,5 @@
 class AppPlayerSplit(object):
-    def __self__(self):
+    def __init__(self):
         self.name = 'App'
 
     def run(self,items):
