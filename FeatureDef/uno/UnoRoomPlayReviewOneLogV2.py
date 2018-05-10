@@ -28,6 +28,7 @@ class UnoRoomPlayReviewOneLog_userremainnum(FeatureCount):
         if len(start)>0:
             for x in L:
                 if x[0] == 'CatchUnoCardResult':
+                    print(x)
                     for card in x[1]:
                         start.append(card[1])
                 elif x[0] == 'StartUnoPlayOne':
