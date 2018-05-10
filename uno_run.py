@@ -13,6 +13,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'manual to this script')
     parser.add_argument('--dir', type=str, default = '/srv/uno-churn-dataset/uno/new_es/')
     args = parser.parse_args()
+    count = 0
     featurenames=['LoginRole_freq','LoginRole_rolelevel'
               ,'LogoutRole_onlinetime'
               ,'LogoutRole_expsum','Trade_FFirst_coins_change','Trade_FSecond_coins_change','Trade_FThird_coins_change'
@@ -50,6 +51,10 @@ if __name__ == '__main__':
     for filename in filelist:
         features=[]
         with open(filename,'r') as f:
+            count = count +1
+            if count%10000==0:
+                print('now:',count)
+
             for featurename in featurenames:
                 features.append(eval(featurename+'()'))
             data = f.read()
