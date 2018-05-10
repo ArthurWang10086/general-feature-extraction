@@ -14,7 +14,7 @@ class Feature(object):
             try:
                 self.value = self.__parse__(item)
             except:
-                print('parse error',GlobalVariable.role_id,self.name,sys.exc_info(),item)
+                print('parse error',GlobalVariable.role_id,self.name,sys.exc_info()[0],item)
                 self.value = None
 
     def __preprocess__(self):
