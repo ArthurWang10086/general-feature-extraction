@@ -1,5 +1,5 @@
 import os
-def GetAllFiles(object):
+class GetAllFiles(object):
     def getAllFiles(self,dir):
         L=[]
         for root, dirs, files in os.walk(dir):
