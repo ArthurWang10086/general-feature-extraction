@@ -34,6 +34,7 @@ class UnoRoomPlayReviewOneLog_userremainnum(FeatureCount):
                     break
             for x in L:
                 if x[0] == 'PlayUnoCardResult':
+                    print(start,x[1])
                     start.remove(x[1])
                 elif x[0] == 'StartUnoPlayOne':
                     break
