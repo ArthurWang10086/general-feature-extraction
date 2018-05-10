@@ -18,7 +18,7 @@ if __name__ == '__main__':
               ,'LogoutRole_expsum','Trade_FFirst_coins_change','Trade_FSecond_coins_change','Trade_FThird_coins_change'
               ,'Trade_LFirst_coins_change','Trade_LSecond_coins_change','Trade_LThird_coins_change','Trade_Final_coins'
               ,'ShareLog_freq','InviteLog_freq','Invite_and_get_into_room','Invite_and_start_game','FollowLog_freq','AdsLog_freq'
-              ,'AdsLog_type','AddAchievement_freq','AddExp_freq','Backpack_freq','Backpack_reason','ConsumeItem_freq'
+              ,'AdsLog_type','AddAchievement_freq','AddExp_freq','Backpack_freq','ConsumeItem_freq'
               ,'DailyReward_freq','DailySign_freq','DailySignReward_freq','DailyTaskFinish_freq','DailyTaskReward_freq','GradeUp_final_grade'
               ,'GradeUp_final_exp','MatchInfo_freq'
               ,'MatchInfo_timeavg','MatchInfo_timemax','MatchInfo_timemin','PraisePlayRound_freq','QuickMatch1V1_freq','QuickMatch1V1_winratio'
@@ -40,26 +40,26 @@ if __name__ == '__main__':
               ,'Tutorial_finish_2v2','Tutorial_finish_uno','Tutorial_finish_friend','Tutorial_usetime_plus4','Tutorial_usetime_2v2'
               ,'Tutorial_usetime_uno','Tutorial_usetime_friend']
 
-    itemData=[]
+    itemDatas=[]
     features=[]
 
-    for featurename in featurenames:
-        features.append(eval(featurename+'()'))
     filelist = GetAllFiles(args.dir)
-    #filelist = ['2.json']
+    filelist = ['2.json',]*3
     PlayerSplit = H5PlayerSplit()
     TimeSplit = OneGameSplit()
     for filename in filelist:
+        features=[]
         with open(filename,'r') as f:
+            for featurename in featurenames:
+                features.append(eval(featurename+'()'))
             data = f.read()
             items = json.loads(data)
             role_id = GetRoleId(items)
             GlobalVariable.role_id = role_id
             endtime = TimeSplit.run(items)
-            is_H5 = PlayerSplit.run(items)
             resourcename = PlayerSplit.name
             label = 0
-            if is_H5 == True:
+            if PlayerSplit.run(items) :
                 for item in items:
                     if datetime.datetime.strptime(item['timestamp'], "%Y-%m-%d %H:%M:%S") < datetime.datetime.strptime(endtime, "%Y-%m-%d %H:%M:%S"):
                         for feature in features:
@@ -67,15 +67,15 @@ if __name__ == '__main__':
                                 feature.append(item)
                     else:
                         label = 1
-
-            featureData=[]
-            for feature in features:
-                featureData.append(feature.run())
-            itemData = featureData[:]
+                featureData=[]
+                for feature in features:
+                    featureData.append(feature.run())
+                itemDatas.append(featureData[:])
 
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
     with open('data/'+dirIndex+'_'+resourcename+'_result.txt','w') as f:
-        f.write(str(label)+'|'+str(role_id)+'|'.join(itemData))
+        for itemData in itemDatas:
+            f.write(str(label)+'|'+str(role_id)+'|'+'|'.join(itemData)+'\n')
 
     with open('data/'+dirIndex+'_'+resourcename+'_featurename.txt','w') as f2:
         tmp = zip(featurenames,range(0,len(featurenames)))
