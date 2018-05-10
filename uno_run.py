@@ -45,7 +45,7 @@ if __name__ == '__main__':
     features=[]
 
     filelist = GetAllFiles(args.dir)
-    filelist = ['2.json',]*3
+    #filelist = ['2.json',]*3
     PlayerSplit = H5PlayerSplit()
     TimeSplit = OneGameSplit()
     for filename in filelist:
