@@ -25,12 +25,14 @@ class Feature(object):
 
     def run(self):
         self.__preprocess__()
-        try:
-            tmp = self.__process__()
-            #print(self.name,tmp)
-            self.value = []
-            return str(tmp) if str(tmp)!='None' else '-1'
-        except:
-            print('process error',GlobalVariable.role_id,self.name,sys.exc_info()[0],self.value)
-            return '-1'
+        if self.value != None:
+            try:
+                tmp = self.__process__()
+                #print(self.name,tmp)
+                self.value = []
+                return str(tmp) if str(tmp)!='None' else '-1'
+            except:
+                print('process error',GlobalVariable.role_id,self.name,sys.exc_info()[0],self.value)
+                return '-1'
+        return '-1'
 

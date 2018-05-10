@@ -26,12 +26,14 @@ class FeatureCount(object):
 
     def run(self):
         self.__preprocess__()
-        try:
-            tmp = self.__process__()
-            #print(self.name,tmp)
-            self.L = []
-            return str(tmp) if str(tmp)!='None' else '-1'
-        except :
-            print('process error',GlobalVariable.role_id,self.name,sys.exc_info()[0],self.L)
-            return '-1'
+        if len(self.L)>0:
+            try:
+                tmp = self.__process__()
+                #print(self.name,tmp)
+                self.L = []
+                return str(tmp) if str(tmp)!='None' else '-1'
+            except :
+                print('process error',GlobalVariable.role_id,self.name,sys.exc_info()[0],self.L)
+                return '-1'
+        return '-1'
 

@@ -33,7 +33,7 @@ if __name__ == '__main__':
               ,'UnoRoomPlayReviewOneLog_uno_freq','UnoRoomPlayReviewOneLog_catchcause_freq','UnoRoomPlayReviewOneLog_catchcause1_freq'
               ,'UnoRoomPlayReviewOneLog_catchcause2_freq','UnoRoomPlayReviewOneLog_catchcause3_freq','UnoRoomPlayReviewOneLog_catchcause4_freq'
               ,'UnoRoomPlayReviewOneLog_catchcause5_freq','UnoRoomPlayReviewOneLog_catchcause6_freq','UnoRoomPlayReviewOneLog_forcerule'
-              ,'UnoRoomPlayReviewOneLog_remainnum','UnoRoomPlayReviewOneLog_userremainnum','UnoRoomPlayReviewOneLog_post_freq','UnoRoomPlayReviewOneLog_get_freq'
+              ,'UnoRoomPlayReviewOneLog_remainnum','UnoRoomPlayReviewOneLog_post_freq','UnoRoomPlayReviewOneLog_get_freq'
               ,'UnoRoomPlayReviewOneLog_timeover_freq'
               ,'Tutorial_freq','Tutorial_start_freq','Tutorial_finish_freq','Tutorial_start_plus4','Tutorial_start_2v2','Tutorial_start_uno'
               ,'Tutorial_start_friend','Tutorial_finish_plus4'
