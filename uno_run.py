@@ -41,22 +41,21 @@ if __name__ == '__main__':
               ,'Tutorial_finish_2v2','Tutorial_finish_uno','Tutorial_finish_friend','Tutorial_usetime_plus4','Tutorial_usetime_2v2'
               ,'Tutorial_usetime_uno','Tutorial_usetime_friend']
 
+
     itemDatas=[]
     features=[]
+    for featurename in featurenames:
+        features.append(eval(featurename+'()'))
 
     filelist = GetAllFiles(args.dir)
-    #filelist = ['2.json',]*3
+    #filelist = ['1.json','2.json']
     PlayerSplit = H5PlayerSplit()
     TimeSplit = OneGameSplit()
     for filename in filelist:
-        features=[]
         with open(filename,'r') as f:
             count = count +1
             if count%10000==0:
                 print('now:',count)
-
-            for featurename in featurenames:
-                features.append(eval(featurename+'()'))
             data = f.read()
             items = json.loads(data)
             role_id = GetRoleId(items)
@@ -75,12 +74,12 @@ if __name__ == '__main__':
                 featureData=[]
                 for feature in features:
                     featureData.append(feature.run())
-                itemDatas.append(featureData[:])
+                itemDatas.append([label,role_id,featureData[:]])
 
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
     with open('data/'+dirIndex+'_'+resourcename+'_result.txt','w') as f:
         for itemData in itemDatas:
-            f.write(str(label)+'|'+str(role_id)+'|'+'|'.join(itemData)+'\n')
+            f.write(str(itemData[0])+'|'+str(itemData[1])+'|'+'|'.join(itemData[2])+'\n')
 
     with open('data/'+dirIndex+'_'+resourcename+'_featurename.txt','w') as f2:
         tmp = zip(featurenames,range(0,len(featurenames)))
