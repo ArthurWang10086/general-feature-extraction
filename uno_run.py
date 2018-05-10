@@ -55,6 +55,7 @@ if __name__ == '__main__':
             GlobalVariable.role_id = role_id
             endtime = OneGameSplit.run(items)
             is_H5 = H5PlayerSplit.run(items)
+            resourcename = H5PlayerSplit.name
             label = 0
             if is_H5 == True:
                 for item in items:
@@ -71,10 +72,10 @@ if __name__ == '__main__':
             itemData = featureData[:]
 
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
-    with open(dirIndex+'_'+H5PlayerSplit.name+'_result.txt','w') as f:
+    with open('data/'+dirIndex+'_'+resourcename+'_result.txt','w') as f:
         f.write(str(label)+'|'+str(role_id)+'|'.join(itemData))
 
-    with open(dirIndex+'_'+H5PlayerSplit.name+'_featurename.txt','w') as f2:
+    with open('data/'+dirIndex+'_'+resourcename+'_featurename.txt','w') as f2:
         tmp = zip(featurenames,range(0,len(featurenames)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
         f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx','1','-1','0']) for x in tmp]))
