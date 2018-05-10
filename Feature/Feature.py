@@ -1,3 +1,4 @@
+from Utils.GlobalVariable import GlobalVariable
 class Feature(object):
     def __init__(self, name, log):
         self.name = name
@@ -12,7 +13,7 @@ class Feature(object):
             try:
                 self.value = self.__parse__(item)
             except:
-                print('parse error',self.name,item)
+                print('parse error',GlobalVariable.role_id,self.name,item)
                 self.value = None
 
     def __preprocess__(self):
@@ -29,6 +30,6 @@ class Feature(object):
             self.value = []
             return str(tmp) if str(tmp)!='None' else '-1'
         except:
-            print('process error',self.name,self.value)
+            print('process error',GlobalVariable.role_id,self.name,self.value)
             return '-1'
 

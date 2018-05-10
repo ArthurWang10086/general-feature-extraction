@@ -1,5 +1,5 @@
 from Utils.not_None import not_None
-
+from Utils.GlobalVariable import GlobalVariable
 
 class FeatureCount(object):
     def __init__(self, name, log):
@@ -14,7 +14,7 @@ class FeatureCount(object):
         try:
             value = self.__parse__(item)
         except:
-            print('parse error',self.name,item)
+            print('parse error',GlobalVariable.role_id,self.name,item)
             value = None
         self.L.append(value)
 
@@ -32,6 +32,6 @@ class FeatureCount(object):
             self.L = []
             return str(tmp) if str(tmp)!='None' else '-1'
         except:
-            print('process error',self.name,self.L)
+            print('process error',GlobalVariable.role_id,self.name,self.L)
             return '-1'
 
