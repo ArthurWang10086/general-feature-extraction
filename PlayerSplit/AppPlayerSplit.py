@@ -1,12 +1,12 @@
-class H5PlayerSplit(object):
+class AppPlayerSplit(object):
     def __self__(self):
-        self.name = 'H5'
+        self.name = 'App'
 
     @staticmethod
     def run(items):
         flag = False
         for item in items:
             if item['log_id'] == 'LoginRole':
-                if item['raw_info']['client_source'] == 'h5':
+                if item['raw_info']['client_source'] == 'App':
                     flag = True
         return flag

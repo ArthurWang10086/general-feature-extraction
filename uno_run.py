@@ -7,6 +7,7 @@ from Utils.GlobalVariable import GlobalVariable
 from Utils.not_None import not_None
 from TimeSplit.OneGameSplit import OneGameSplit
 from PlayerSplit.H5PlayerSplit import H5PlayerSplit
+from PlayerSplit.AppPlayerSplit import AppPlayerSplit
 from FeatureDef.uno import *
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'manual to this script')
@@ -45,7 +46,7 @@ if __name__ == '__main__':
     for featurename in featurenames:
         features.append(eval(featurename+'()'))
     filelist = GetAllFiles(args.dir)
-    filelist = ['1.json']
+    #filelist = ['1.json']
     for filename in filelist:
         with open(filename,'r') as f:
             data = f.read()
@@ -70,10 +71,10 @@ if __name__ == '__main__':
             itemData = featureData[:]
 
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
-    with open(dirIndex+'_result.txt','w') as f:
+    with open(dirIndex+'_'+H5PlayerSplit.name+'_result.txt','w') as f:
         f.write(str(label)+'|'+str(role_id)+'|'.join(itemData))
 
-    with open(dirIndex+'_featurename.txt','w') as f2:
+    with open(dirIndex+'_'+H5PlayerSplit.name+'_featurename.txt','w') as f2:
         tmp = zip(featurenames,range(0,len(featurenames)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
         f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx','1','-1','0']) for x in tmp]))
