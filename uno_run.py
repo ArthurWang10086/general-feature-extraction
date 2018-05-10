@@ -46,6 +46,7 @@ if __name__ == '__main__':
     for featurename in featurenames:
         features.append(eval(featurename+'()'))
     filelist = GetAllFiles(args.dir)
+    print(filelist[:10])
     #filelist = ['1.json']
     for filename in filelist:
         with open(filename,'r') as f:
