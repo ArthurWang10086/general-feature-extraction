@@ -47,6 +47,7 @@ if __name__ == '__main__':
         features.append(eval(featurename+'()'))
     filelist = GetAllFiles(args.dir)
     #filelist = ['1.json']
+    Split = H5PlayerSplit()
     for filename in filelist:
         with open(filename,'r') as f:
             data = f.read()
@@ -54,8 +55,8 @@ if __name__ == '__main__':
             role_id = GetRoleId(items)
             GlobalVariable.role_id = role_id
             endtime = OneGameSplit.run(items)
-            is_H5 = H5PlayerSplit.run(items)
-            resourcename = H5PlayerSplit.name
+            is_H5 = Split.run(items)
+            resourcename = Split.name
             label = 0
             if is_H5 == True:
                 for item in items:

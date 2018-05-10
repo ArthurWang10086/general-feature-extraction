@@ -2,7 +2,6 @@ class H5PlayerSplit(object):
     def __self__(self):
         self.name = 'H5'
 
-    @staticmethod
     def run(items):
         flag = False
         for item in items:

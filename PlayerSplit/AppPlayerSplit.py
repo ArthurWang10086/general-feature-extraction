@@ -2,7 +2,6 @@ class AppPlayerSplit(object):
     def __self__(self):
         self.name = 'App'
 
-    @staticmethod
     def run(items):
         flag = False
         for item in items:
