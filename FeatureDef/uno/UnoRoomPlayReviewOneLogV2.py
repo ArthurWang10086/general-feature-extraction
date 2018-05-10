@@ -21,7 +21,7 @@ class UnoRoomPlayReviewOneLog_userremainnum(FeatureCount):
         tmp = None
         for x in L:
             if x[0] == 'StartUnoPlayOne':
-                tmp = x
+                tmp = x[:]
                 break
         L.remove(tmp)
         start = tmp[1]
