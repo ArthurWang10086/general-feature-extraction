@@ -1,12 +1,16 @@
 import datetime
 import json
+import argparse
 from Utils.GetRoleId import GetRoleId
+from Utils.GetAllFiles import GetAllFiles
 from Utils.GlobalVariable import GlobalVariable
+from Utils.not_None import not_None
 from TimeSplit.OneGameSplit import OneGameSplit
 from FeatureDef.uno import *
 if __name__ == '__main__':
-
-
+    parser = argparse.ArgumentParser(description = 'manual to this script')
+    parser.add_argument('--dir', type=str, default = '/srv/uno-churn-dataset/uno/new_es/')
+    args = parser.parse_args()
     featurenames=['LoginRole_freq','LoginRole_country','LoginRole_osname','LoginRole_appchannel','LoginRole_rolelevel'
               ,'LoginRole_logintime','LoginRole_clientsource','LoginRole_clienttype','LogoutRole_onlinetime','LogoutRole_logouttime'
               ,'LogoutRole_expsum','Trade_reason','Trade_FFirst_coins_change','Trade_FSecond_coins_change','Trade_FThird_coins_change'
@@ -39,9 +43,11 @@ if __name__ == '__main__':
 
     itemData=[]
     features=[]
+
     for featurename in featurenames:
         features.append(eval(featurename+'()'))
-    for filename in ['1.json',]*1:
+
+    for filename in GetAllFiles(args.dir):
         with open(filename,'r') as f:
             data = f.read()
             items = json.loads(data)
@@ -61,13 +67,11 @@ if __name__ == '__main__':
             for feature in features:
                 featureData.append(feature.run())
             itemData = featureData[:]
-            print(itemData)
-            #print('success')
-            print(str(label)+'|'+str(role_id)+'|'.join(itemData))
-    with open('result.txt','w') as f:
+
+    dirIndex = filter(not_None,str(args.dir).split('/'))[-1]
+    with open(dirIndex+'_result.txt','w') as f:
         f.write(str(label)+'|'+str(role_id)+'|'.join(itemData))
 
-    with open('featurename.txt','w') as f2:
+    with open(dirIndex+'_featurename.txt','w') as f2:
         tmp = zip(featurenames,range(0,len(featurenames)))
-        #print(['\t'.join([str(x[1]),x[0],'详见xx','1']) for x in tmp])
         f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx','1','-1','0']) for x in tmp]))

@@ -1,2 +1,2 @@
 def not_None(s):
-    return s is not None
+    return s not in [None,'']
