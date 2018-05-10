@@ -6,6 +6,7 @@ from Utils.GetAllFiles import GetAllFiles
 from Utils.GlobalVariable import GlobalVariable
 from Utils.not_None import not_None
 from TimeSplit.OneGameSplit import OneGameSplit
+from PlayerSplit.H5PlayerSplit import H5PlayerSplit
 from FeatureDef.uno import *
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'manual to this script')
@@ -43,29 +44,32 @@ if __name__ == '__main__':
 
     for featurename in featurenames:
         features.append(eval(featurename+'()'))
-
-    for filename in GetAllFiles(args.dir):
+    filelist = GetAllFiles(args.dir)
+    #filelist = ['1.json']
+    for filename in filelist:
         with open(filename,'r') as f:
             data = f.read()
             items = json.loads(data)
             role_id = GetRoleId(items)
             GlobalVariable.role_id = role_id
             endtime = OneGameSplit.run(items)
-            for item in items:
-                label = 0
-                if datetime.datetime.strptime(item['timestamp'], "%Y-%m-%d %H:%M:%S") < datetime.datetime.strptime(endtime, "%Y-%m-%d %H:%M:%S"):
-                    for feature in features:
-                        if feature.log == item['log_id']:
-                            feature.append(item)
-                else:
-                    label = 1
+            is_H5 = H5PlayerSplit.run(items)
+            label = 0
+            if is_H5 == True:
+                for item in items:
+                    if datetime.datetime.strptime(item['timestamp'], "%Y-%m-%d %H:%M:%S") < datetime.datetime.strptime(endtime, "%Y-%m-%d %H:%M:%S"):
+                        for feature in features:
+                            if feature.log == item['log_id']:
+                                feature.append(item)
+                    else:
+                        label = 1
 
             featureData=[]
             for feature in features:
                 featureData.append(feature.run())
             itemData = featureData[:]
 
-    dirIndex = filter(not_None,str(args.dir).split('/'))[-1]
+    dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
     with open(dirIndex+'_result.txt','w') as f:
         f.write(str(label)+'|'+str(role_id)+'|'.join(itemData))
 
