@@ -1,9 +1,12 @@
 from Feature.FeatureCount import FeatureCount
 from Feature.Feature import Feature
 import json
+
+
 class UnoRoomPlayReviewOneLog_freq(FeatureCount):
     def __init__(self):
         FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_freq', 'UnoRoomPlayReviewOneLog')
+
 
 class UnoRoomPlayReviewOneLog_post_freq(FeatureCount):
     def __init__(self, name='UnoRoomPlayReviewOneLog_post_freq', log='UnoRoomPlayReviewOneLog'):
@@ -15,6 +18,7 @@ class UnoRoomPlayReviewOneLog_post_freq(FeatureCount):
         else:
             return None
 
+
 class UnoRoomPlayReviewOneLog_get_freq(FeatureCount):
     def __init__(self, name='UnoRoomPlayReviewOneLog_get_freq', log='UnoRoomPlayReviewOneLog'):
         FeatureCount.__init__(self, name, log)
@@ -25,18 +29,20 @@ class UnoRoomPlayReviewOneLog_get_freq(FeatureCount):
         else:
             return None
 
+
 class UnoRoomPlayReviewOneLog_timeover_freq(FeatureCount):
     def __init__(self, name='UnoRoomPlayReviewOneLog_timeover_freq', log='UnoRoomPlayReviewOneLog'):
         FeatureCount.__init__(self, name, log)
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return 1 if int(json.loads(item['raw_info']['InfoStr'])['UseTime'])>=10 else 0
+            return 1 if int(json.loads(item['raw_info']['InfoStr'])['UseTime']) >= 10 else 0
         else:
             return None
 
     def __process__(self):
         return sum(self.L)
+
 
 class UnoRoomPlayReviewOneLog_timeconsume_average(FeatureCount):
     def __init__(self, name='UnoRoomPlayReviewOneLog_timeconsume_average', log='UnoRoomPlayReviewOneLog'):
@@ -76,9 +82,10 @@ class UnoRoomPlayReviewOneLog_postmagiccard_freq(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            if str(json.loads(item['raw_info']['InfoStr'])['CardType']) in ['1','2']:
+            if str(json.loads(item['raw_info']['InfoStr'])['CardType']) in ['1', '2']:
                 return 1
         return None
+
 
 class UnoRoomPlayReviewOneLog_postpowercard_freq(FeatureCount):
     def __init__(self):
@@ -86,9 +93,10 @@ class UnoRoomPlayReviewOneLog_postpowercard_freq(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            if str(json.loads(item['raw_info']['InfoStr'])['CardType'])[-2:] in ['01','02','03','04']:
+            if str(json.loads(item['raw_info']['InfoStr'])['CardType'])[-2:] in ['01', '02', '03', '04']:
                 return 1
         return None
+
 
 class UnoRoomPlayReviewOneLog_getmagiccard_freq(FeatureCount):
     def __init__(self):
@@ -99,9 +107,10 @@ class UnoRoomPlayReviewOneLog_getmagiccard_freq(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             D = json.loads(item['raw_info']['InfoStr'])['CardsList']
             for (index, card) in D.items():
-                if str(card) in ('1','2'):
+                if str(card) in ('1', '2'):
                     count = count + 1
         return count
+
 
 class UnoRoomPlayReviewOneLog_getpowercard_freq(FeatureCount):
     def __init__(self):
@@ -112,9 +121,10 @@ class UnoRoomPlayReviewOneLog_getpowercard_freq(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             D = json.loads(item['raw_info']['InfoStr'])['CardsList']
             for (index, card) in D.items():
-                if str(card)[-2:] in ('01','02','03','04'):
+                if str(card)[-2:] in ('01', '02', '03', '04'):
                     count = count + 1
         return count
+
 
 class UnoRoomPlayReviewOneLog_argue_freq(FeatureCount):
     def __init__(self):
@@ -270,4 +280,5 @@ class UnoRoomPlayReviewOneLog_remainnum(FeatureCount):
             return None
 
     def __process__(self):
-        return self.L[-1]
+        L = self.L
+        return L[-1] if len(L) > 0 else None

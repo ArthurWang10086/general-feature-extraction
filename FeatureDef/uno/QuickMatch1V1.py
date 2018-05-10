@@ -30,7 +30,7 @@ class QuickMatch1V1_winratio(FeatureCount):
 
     def __process__(self):
         L = self.L
-        return sum(L) / float(len(L)) if len(L) > 0 else 0.25
+        return sum(L) / float(len(L)) if len(L) > 0 else None
 
     # F1QuickMatch1V1_winratio - 1V1胜率（前1场） QuickMatch1V1 role_id == role_id1 win
 
@@ -41,7 +41,7 @@ class F1QuickMatch1V1_winratio(QuickMatch1V1_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[:1]) / float(len(L[:1])) if len(L) > 0 else 0.25
+        return sum(L[:1]) / float(len(L[:1])) if len(L) > 0 else None
 
     # F2QuickMatch1V1_winratio - 1V1胜率（前2场） QuickMatch1V1 role_id == role_id1 win
 
@@ -52,7 +52,7 @@ class F2QuickMatch1V1_winratio(QuickMatch1V1_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[:2]) / float(len(L[:2])) if len(L) > 0 else 0.25
+        return sum(L[:2]) / float(len(L[:2])) if len(L) > 0 else None
 
     # F3QuickMatch1V1_winratio - 1V1胜率（前3场） QuickMatch1V1 role_id == role_id1 win
 
@@ -63,7 +63,7 @@ class F3QuickMatch1V1_winratio(QuickMatch1V1_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[:3]) / float(len(L[:3])) if len(L) > 0 else 0.25
+        return sum(L[:3]) / float(len(L[:3])) if len(L) > 0 else None
 
     # L1QuickMatch1V1_winratio - 1V1胜率（后1场） QuickMatch1V1 role_id == role_id1 win
 
@@ -74,7 +74,7 @@ class L1QuickMatch1V1_winratio(QuickMatch1V1_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[-1:]) / float(len(L[-1:])) if len(L) > 0 else 0.25
+        return sum(L[-1:]) / float(len(L[-1:])) if len(L) > 0 else None
 
     # L2QuickMatch1V1_winratio - 1V1胜率（后2场） QuickMatch1V1 role_id == role_id1 win
 
@@ -85,7 +85,7 @@ class L2QuickMatch1V1_winratio(QuickMatch1V1_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[-2:]) / float(len(L[-2:])) if len(L) > 0 else 0.25
+        return sum(L[-2:]) / float(len(L[-2:])) if len(L) > 0 else None
 
     # L3QuickMatch1V1_winratio - 1V1胜率（后3场） QuickMatch1V1 role_id == role_id1 win
 
@@ -96,7 +96,7 @@ class L3QuickMatch1V1_winratio(QuickMatch1V1_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[-3:]) / float(len(L[-3:])) if len(L) > 0 else 0.25
+        return sum(L[-3:]) / float(len(L[-3:])) if len(L) > 0 else None
 
     # QuickMatch1V1_rank - 1V1名次（所有场次） QuickMatch1V1 role_id == role_id1 win
 
@@ -127,7 +127,7 @@ class QuickMatch1V1_rank(FeatureCount):
 
     def __process__(self):
         L = self.L
-        return sum(L) / float(len(L)) if len(L) > 0 else 2.5
+        return sum(L) / float(len(L)) if len(L) > 0 else None
 
     # F1QuickMatch1V1_rank - 1V1名次（前1场） QuickMatch1V1 role_id == role_id1 win
 
@@ -138,7 +138,7 @@ class F1QuickMatch1V1_rank(QuickMatch1V1_rank):
 
     def __process__(self):
         L = self.L
-        return sum(L[:1]) / float(len(L[:1])) if len(L) > 0 else 2.5
+        return sum(L[:1]) / float(len(L[:1])) if len(L) > 0 else None
 
     # F2QuickMatch1V1_rank - 1V1名次（前2场） QuickMatch1V1 role_id == role_id1 win
 
@@ -149,7 +149,7 @@ class F2QuickMatch1V1_rank(QuickMatch1V1_rank):
 
     def __process__(self):
         L = self.L
-        return sum(L[:2]) / float(len(L[:2])) if len(L) > 0 else 2.5
+        return sum(L[:2]) / float(len(L[:2])) if len(L) > 0 else None
 
     # F3QuickMatch1V1_rank - 1V1名次（前3场） QuickMatch1V1 role_id == role_id1 win
 
@@ -160,7 +160,7 @@ class F3QuickMatch1V1_rank(QuickMatch1V1_rank):
 
     def __process__(self):
         L = self.L
-        return sum(L[:3]) / float(len(L[:3])) if len(L) > 0 else 2.5
+        return sum(L[:3]) / float(len(L[:3])) if len(L) > 0 else None
 
     # L1QuickMatch1V1_rank - 1V1名次（后1场） QuickMatch1V1 role_id == role_id1 win
 
@@ -171,7 +171,7 @@ class L1QuickMatch1V1_rank(QuickMatch1V1_rank):
 
     def __process__(self):
         L = self.L
-        return sum(L[-1:]) / float(len(L[-1:])) if len(L) > 0 else 2.5
+        return sum(L[-1:]) / float(len(L[-1:])) if len(L) > 0 else None
 
     # L2QuickMatch1V1_rank - 1V1名次（后2场） QuickMatch1V1 role_id == role_id1 win
 
@@ -182,7 +182,7 @@ class L2QuickMatch1V1_rank(QuickMatch1V1_rank):
 
     def __process__(self):
         L = self.L
-        return sum(L[-2:]) / float(len(L[-2:])) if len(L) > 0 else 2.5
+        return sum(L[-2:]) / float(len(L[-2:])) if len(L) > 0 else None
 
     # L3QuickMatch1V1_rank - 1V1名次（后3场） QuickMatch1V1 role_id == role_id1 win
 
@@ -193,4 +193,4 @@ class L3QuickMatch1V1_rank(QuickMatch1V1_rank):
 
     def __process__(self):
         L = self.L
-        return sum(L[-3:]) / float(len(L[-3:])) if len(L) > 0 else 2.5
+        return sum(L[-3:]) / float(len(L[-3:])) if len(L) > 0 else None

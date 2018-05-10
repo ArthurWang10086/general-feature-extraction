@@ -8,7 +8,8 @@ class LogoutRole_onlinetime(FeatureCount):
         return item['raw_info']['online_time']
 
     def __process__(self):
-        return sum(self.L)
+        L = self.L
+        return sum(L) if len(L)>0 else None
 
 
 class LogoutRole_logouttime(Feature):

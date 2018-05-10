@@ -25,10 +25,10 @@ class Feature(object):
         self.__preprocess__()
         try:
             tmp = self.__process__()
-            # print(self.name,tmp)
+            #print(self.name,tmp)
             self.value = []
-            return tmp
+            return str(tmp) if str(tmp)!='None' else '-1'
         except:
             print('process error',self.name,self.value)
-            return None
+            return '-1'
 

@@ -41,7 +41,7 @@ if __name__ == '__main__':
     features=[]
     for featurename in featurenames:
         features.append(eval(featurename+'()'))
-    for filename in ['11.json',]*1:
+    for filename in ['1.json',]*1:
         with open(filename,'r') as f:
             data = f.read()
             items = json.loads(data)
@@ -60,9 +60,14 @@ if __name__ == '__main__':
             featureData=[]
             for feature in features:
                 featureData.append(feature.run())
-            itemData.append(featureData[:])
-            itemData.append(label)
+            itemData = featureData[:]
             print(itemData)
-            print('success')
-    # with open('result.txt','w') as f:
-    #     f.write(itemData)
+            #print('success')
+            print(str(label)+'|'+str(role_id)+'|'.join(itemData))
+    with open('result.txt','w') as f:
+        f.write(str(label)+'|'+str(role_id)+'|'.join(itemData))
+
+    with open('featurename.txt','w') as f2:
+        tmp = zip(featurenames,range(0,len(featurenames)))
+        #print(['\t'.join([str(x[1]),x[0],'详见xx','1']) for x in tmp])
+        f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx','1','-1','0']) for x in tmp]))

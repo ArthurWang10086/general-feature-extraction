@@ -29,7 +29,7 @@ class QuickMatch2V2_winratio(FeatureCount):
 
     def __process__(self):
         L = self.L
-        return sum(L[-3:]) / float(len(L[-3:])) if len(L) > 0 else 0.5
+        return sum(L[-3:]) / float(len(L[-3:])) if len(L) > 0 else None
 
 
 # F1QuickMatch2V2_winratio - 2V2胜率（前1场）
@@ -39,7 +39,7 @@ class F1QuickMatch2V2_winratio(QuickMatch2V2_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[:1]) / float(len(L[:1])) if len(L) > 0 else 0.5
+        return sum(L[:1]) / float(len(L[:1])) if len(L) > 0 else None
     # F2QuickMatch2V2_winratio - 2V2胜率（前2场）
 
 
@@ -49,7 +49,7 @@ class F2QuickMatch2V2_winratio(QuickMatch2V2_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[:2]) / float(len(L[:2])) if len(L) > 0 else 0.5
+        return sum(L[:2]) / float(len(L[:2])) if len(L) > 0 else None
     # F3QuickMatch2V2_winratio - 2V2胜率（前3场）
 
 
@@ -59,7 +59,7 @@ class F3QuickMatch2V2_winratio(QuickMatch2V2_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[:3]) / float(len(L[:3])) if len(L) > 0 else 0.5
+        return sum(L[:3]) / float(len(L[:3])) if len(L) > 0 else None
     # L1QuickMatch2V2_winratio - 2V2胜率（后1场）
 
 
@@ -69,7 +69,7 @@ class L1QuickMatch2V2_winratio(QuickMatch2V2_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[-1:]) / float(len(L[-1:])) if len(L) > 0 else 0.5
+        return sum(L[-1:]) / float(len(L[-1:])) if len(L) > 0 else None
     # L2QuickMatch2V2_winratio - 2V2胜率（后2场）
 
 
@@ -79,7 +79,7 @@ class L2QuickMatch2V2_winratio(QuickMatch2V2_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[-2:]) / float(len(L[-2:])) if len(L) > 0 else 0.5
+        return sum(L[-2:]) / float(len(L[-2:])) if len(L) > 0 else None
     # L3QuickMatch2V2_winratio - 2V2胜率（后3场）
 
 
@@ -89,4 +89,4 @@ class L3QuickMatch2V2_winratio(QuickMatch2V2_winratio):
 
     def __process__(self):
         L = self.L
-        return sum(L[-3:]) / float(len(L[-3:])) if len(L) > 0 else 0.5
+        return sum(L[-3:]) / float(len(L[-3:])) if len(L) > 0 else None

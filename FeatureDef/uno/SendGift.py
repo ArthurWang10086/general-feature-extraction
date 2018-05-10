@@ -13,3 +13,7 @@ class SendGift_amount(FeatureCount):
 
     def __parse__(self, item):
         return item['raw_info']['gift_message']['diamond_use']
+
+    def __process__(self):
+        L = self.L
+        return sum(L) if len(L) > 0 else None

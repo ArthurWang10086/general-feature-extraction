@@ -28,10 +28,10 @@ class FeatureCount(object):
         self.__preprocess__()
         try:
             tmp = self.__process__()
-            # print(self.name,tmp)
+            #print(self.name,tmp)
             self.L = []
-            return tmp
+            return str(tmp) if str(tmp)!='None' else '-1'
         except:
             print('process error',self.name,self.L)
-            return None
+            return '-1'
 
