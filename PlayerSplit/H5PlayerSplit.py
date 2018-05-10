@@ -2,7 +2,7 @@ class H5PlayerSplit(object):
     def __self__(self):
         self.name = 'H5'
 
-    def run(items):
+    def run(self,items):
         flag = False
         for item in items:
             if item['log_id'] == 'LoginRole':

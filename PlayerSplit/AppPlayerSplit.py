@@ -2,7 +2,7 @@ class AppPlayerSplit(object):
     def __self__(self):
         self.name = 'App'
 
-    def run(items):
+    def run(self,items):
         flag = False
         for item in items:
             if item['log_id'] == 'LoginRole':
