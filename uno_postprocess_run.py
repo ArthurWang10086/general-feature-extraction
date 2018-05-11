@@ -22,9 +22,9 @@ if __name__=='__main__':
     df.to_csv(name+'new_es_H5_allfeature.txt', sep='|')
 
     with open(output_filename,'w') as f2:
-        featurenames = ['label','role_id','SerialId']+uno_process_run.featurenames + hive_featurenames[1:-1]
-        print(featurenames)
-        tmp = zip(featurenames,range(0,len(featurenames)))
+        names = ['label','role_id','SerialId']+uno_process_run.featurenames + hive_featurenames[1:-1]
+        print(names)
+        tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
         f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx','1','-1','0']) for x in tmp]))
 
