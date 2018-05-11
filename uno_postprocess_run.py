@@ -23,6 +23,7 @@ if __name__=='__main__':
 
     with open(output_filename,'w') as f2:
         featurenames = ['label','role_id','SerialId']+uno_process_run.featurenames + hive_featurenames[1:-1]
+        print(featurenames)
         tmp = zip(featurenames,range(0,len(featurenames)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
         f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx','1','-1','0']) for x in tmp]))
