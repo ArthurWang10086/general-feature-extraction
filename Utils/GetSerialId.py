@@ -9,4 +9,4 @@ def GetSerialId(items):
         if item['log_id'] == 'MatchInfo':
             serial_id = item['raw_info']['SerialId']
             return serial_id
-    return -1
+    return '-1'
