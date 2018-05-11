@@ -42,6 +42,7 @@ if __name__ == '__main__':
     parser.add_argument('--dir', type=str, default = '/srv/uno-churn-dataset/uno/new_es/')
     args = parser.parse_args()
     count = 0
+    SerialId = None
     itemDatas=[]
     features=[]
     for featurename in featurenames:
@@ -75,12 +76,12 @@ if __name__ == '__main__':
                 featureData=[]
                 for feature in features:
                     featureData.append(feature.run())
-                itemDatas.append([label,role_id,featureData[:]])
+                itemDatas.append([label,role_id,SerialId,featureData[:]])
 
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
     with open('data/'+dirIndex+'_'+resourcename+'_result.txt','w') as f:
         for itemData in itemDatas:
-            f.write(str(itemData[0])+'|'+str(itemData[1])+'|'+str(SerialId)+'|'.join(itemData[2])+'\n')
+            f.write(str(itemData[0])+'|'+str(itemData[1])+'|'+str(itemData[2])+'|'.join(itemData[3])+'\n')
 
     with open('data/'+dirIndex+'_'+resourcename+'_featurename.txt','w') as f2:
         tmp = zip(featurenames,range(0,len(featurenames)))

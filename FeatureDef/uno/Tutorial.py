@@ -144,6 +144,7 @@ class Tutorial_usetime_friend(Feature):
 
     def __parse__(self, item):
         if str(item['raw_info']['step_type']) == '1' and int(item['raw_info']['tutorial_id'])==4200011:
+            print(item['raw_info']['use_time'])
             return item['raw_info']['use_time']
         else:
             return None
