@@ -19,7 +19,7 @@ if __name__=='__main__':
                           ,usecols=hive_featurenames[:-1])
 
     df = df_log.merge(df_hive,how = 'inner')
-    df.to_csv(name+'new_es_H5_allfeature.txt', sep='|')
+    df.to_csv(name+'new_es_H5_allfeature.txt', sep='|',index=False,header=False)
 
     with open(log_featurename_filename,'w') as f2:
         names = ['label','role_id','SerialId']+uno_process_run.featurenames + hive_featurenames[1:-1]
