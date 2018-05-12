@@ -81,7 +81,7 @@ if __name__ == '__main__':
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
     with open('data/'+dirIndex+'_'+resourcename+'_result.txt','w') as f:
         for itemData in itemDatas:
-            f.write(str(itemData[0])+'|'+str(itemData[1])+'|'+str(itemData[2])+'|'.join(itemData[3])+'\n')
+            f.write(str(itemData[0])+'|'+str(itemData[1])+'|'+str(itemData[2])+'|'+'|'.join(itemData[3])+'\n')
 
     with open('data/'+dirIndex+'_'+resourcename+'_featurename.txt','w') as f2:
         tmp = zip(featurenames,range(0,len(featurenames)))
