@@ -6,7 +6,7 @@ if __name__=='__main__':
     log_feature_filename = name+'2018-04-12_H5_result.txt'
     log_featurename_filename = name+'2018-04-12_H5_featurename.txt'
     hive_feature_filename = name+'2018-04-12_Hive_result.txt'
-    output_filename = name+'new_es_H5_allfeature.txt'
+    output_filename = name+'2018-04-12_H5_allfeature.txt'
     #statistic_filename = ''
     log_featurenames = ['label','role_id','SerialId']+uno_process_run.featurenames
     df_log=pd.read_table(log_feature_filename,sep='|',names=log_featurenames)
@@ -27,7 +27,6 @@ if __name__=='__main__':
         tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
         f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx','1','-1','0']) for x in tmp]))
-
 
 
 

@@ -11,12 +11,11 @@ from PlayerSplit.H5PlayerSplit import H5PlayerSplit
 from PlayerSplit.AppPlayerSplit import AppPlayerSplit
 from FeatureDef.uno import *
 featurenames=['LoginRole_freq','LoginRole_rolelevel'
-    ,'LogoutRole_onlinetime'
-    ,'LogoutRole_expsum','Trade_FFirst_coins_change','Trade_FSecond_coins_change','Trade_FThird_coins_change'
-    ,'Trade_LFirst_coins_change','Trade_LSecond_coins_change','Trade_LThird_coins_change','Trade_Final_coins'
+    ,'LogoutRole_expsum','Trade_FFirst_coins_change'
+    ,'Trade_Final_coins'
     ,'ShareLog_freq','InviteLog_freq','Invite_and_get_into_room','Invite_and_start_game','FollowLog_freq','AdsLog_freq'
     ,'AdsLog_type','AddAchievement_freq','AddExp_freq','Backpack_freq','ConsumeItem_freq'
-    ,'DailyReward_freq','DailySign_freq','DailySignReward_freq','DailyTaskFinish_freq','DailyTaskReward_freq','GradeUp_final_grade'
+    ,'DailySign_freq','DailySignReward_freq','DailyTaskFinish_freq','DailyTaskReward_freq','GradeUp_final_grade'
     ,'GradeUp_final_exp','MatchInfo_freq'
     ,'MatchInfo_timeavg','MatchInfo_timemax','MatchInfo_timemin','PraisePlayRound_freq','QuickMatch1V1_freq','QuickMatch1V1_winratio'
     ,'F1QuickMatch1V1_winratio','QuickMatch1V1_rank','F1QuickMatch1V1_rank','QuickMatch2V2_freq','QuickMatch2V2_winratio'
@@ -49,7 +48,7 @@ if __name__ == '__main__':
         features.append(eval(featurename+'()'))
 
     filelist = GetAllFiles(args.dir)
-    #filelist = ['1.json','2.json']
+    filelist = ['1.json','2.json']
     PlayerSplit = H5PlayerSplit()
     TimeSplit = OneGameSplit()
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]

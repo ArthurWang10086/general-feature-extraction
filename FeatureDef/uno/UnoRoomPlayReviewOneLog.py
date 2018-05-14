@@ -143,7 +143,7 @@ class UnoRoomPlayReviewOneLog_arguesuccess_freq(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Result'] == 'true' else 0
+            return 1 if json.loads(item['raw_info']['InfoStr'])['Result'] else 0
         else:
             return None
 
@@ -154,7 +154,7 @@ class UnoRoomPlayReviewOneLog_arguehappen_freq(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['IsChallenge'] == 'true' else 0
+            return 1 if json.loads(item['raw_info']['InfoStr'])['IsChallenge'] else 0
         else:
             return None
 
@@ -176,7 +176,7 @@ class UnoRoomPlayReviewOneLog_uno_freq(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['UnoDeclared'] == 'true' else 0
+            return 1 if json.loads(item['raw_info']['InfoStr'])['UnoDeclared'] else 0
         else:
             return None
 
