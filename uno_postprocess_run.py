@@ -18,6 +18,7 @@ if __name__=='__main__':
                           ,sep='\t'
                           ,names=hive_featurenames
                           ,usecols=hive_featurenames[:-1])
+    df_hive.fillna(value=0, inplace=True)
 
     df = df_log.merge(df_hive,how = 'inner')
     df.to_csv(output_filename, sep='|',index=False,header=False)
@@ -40,9 +41,6 @@ if __name__=='__main__':
 
     with open(output_filename,'w') as f:
         f.write('\n'.join(filter_data))
-
-
-
 
     with open(log_featurename_filename,'w') as f2:
         names = ['label','role_id','SerialId']+uno_process_run.featurenames + hive_featurenames[1:-1]
