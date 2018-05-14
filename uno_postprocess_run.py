@@ -25,17 +25,15 @@ if __name__=='__main__':
 
     f = open(filter_filename,'r')
     idData = f.read().split('\n')[1:]
-    idDict = dict([x.split('\t') for x in idData])
+    idSet = set([x.split('\t')[1] for x in idData])
     f.close()
 
-    def filterId(s):
-        return s in idDict
 
     f=open(output_filename,'r')
     data = f.open().split('\n')
     filter_data=[]
     for row in data:
-        if row.split('|')[1] in idDict:
+        if row.split('|')[1] in idSet:
             filter_data.append(row)
     f.close()
 
