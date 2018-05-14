@@ -7,8 +7,7 @@ if __name__=='__main__':
     log_featurename_filename = name+'2018-04-12_H5_featurename.txt'
     hive_feature_filename = name+'2018-04-12_Hive_result.txt'
     output_filename = name+'2018-04-12_H5_allfeature.txt'
-    filter_filename = name + 'h5.txt'
-    #statistic_filename = ''
+
     log_featurenames = ['label','role_id','SerialId']+uno_process_run.featurenames
     df_log=pd.read_table(log_feature_filename,sep='|',names=log_featurenames)
     hive_featurenames = ['SerialId','getusetimemin','gettimeaverage'
@@ -18,27 +17,11 @@ if __name__=='__main__':
                           ,sep='\t'
                           ,names=hive_featurenames
                           ,usecols=hive_featurenames[:-1])
-    df_hive.fillna(value=0, inplace=True)
+    df_hive = df_hive.fillna(value=0, inplace=True)
 
     df = df_log.merge(df_hive,how = 'inner')
     df.to_csv(output_filename, sep='|',index=False,header=False)
 
-    f = open(filter_filename,'r')
-    idData = f.read().split('\n')[1:]
-    idSet = set([x.split('\t')[1] for x in idData])
-    f.close()
-
-
-    f=open(output_filename,'r')
-    data = f.open().split('\n')
-    filter_data=[]
-    for row in data:
-        if row.split('|')[1] in idSet:
-            filter_data.append(row)
-    f.close()
-
-    with open(output_filename,'w') as f:
-        f.write('\n'.join(filter_data))
 
     with open(log_featurename_filename,'w') as f2:
         names = ['label','role_id','SerialId']+uno_process_run.featurenames + hive_featurenames[1:-1]
