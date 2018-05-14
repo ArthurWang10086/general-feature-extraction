@@ -35,7 +35,7 @@ class FeatureCount(object):
                 self.L = []
                 return str(tmp) if str(tmp) != 'None' else '-1'
             else:
-                return '-1' if 'freq' in self.name else '0'
+                return '-1' if 'freq' not in self.name else '0'
         except Exception as e:
             print('process error', GlobalVariable.role_id, self.name, e, self.L)
-            return '-1' if 'freq' in self.name else '0'
+            return '-1' if 'freq' not in self.name else '0'
