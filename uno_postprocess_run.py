@@ -20,7 +20,7 @@ if __name__=='__main__':
     #df_hive = df_hive.fillna(value=0, inplace=True)
 
     df = df_log.merge(df_hive,how = 'inner')
-    df=df.fillna(value=0, inplace=True)
+    df.fillna(value=0, inplace=True)
     df.to_csv(output_filename, sep='|',index=False,header=False)
 
 
