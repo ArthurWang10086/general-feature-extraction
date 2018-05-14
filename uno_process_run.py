@@ -48,7 +48,7 @@ if __name__ == '__main__':
         features.append(eval(featurename+'()'))
 
     filelist = GetAllFiles(args.dir)
-    filelist = ['1.json','2.json']
+    #filelist = ['1.json','2.json']
     PlayerSplit = H5PlayerSplit()
     TimeSplit = OneGameSplit()
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
