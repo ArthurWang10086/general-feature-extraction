@@ -39,7 +39,7 @@ class UnoRoomPlayReviewOneLog_get(FeatureCount):
             return 0
 
 class UnoRoomPlayReviewOneLog_get_num(FeatureCount):
-    def __init__(self, name='UnoRoomPlayReviewOneLog_get', log='UnoRoomPlayReviewOneLog'):
+    def __init__(self, name='UnoRoomPlayReviewOneLog_get_num', log='UnoRoomPlayReviewOneLog'):
         FeatureCount.__init__(self, name, log)
 
     def __parse__(self, item):
