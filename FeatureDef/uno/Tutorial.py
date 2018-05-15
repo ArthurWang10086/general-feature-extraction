@@ -8,9 +8,9 @@ class Tutorial_freq(FeatureCount):
     def __init__(self):
         FeatureCount.__init__(self, 'Tutorial_freq', 'Tutorial')
 
-class Tutorial_start_freq(FeatureCount):
+class Tutorial_start(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'Tutorial_start_freq', 'Tutorial')
+        FeatureCount.__init__(self, 'Tutorial_start', 'Tutorial')
 
     def __parse__(self, item):
         if str(item['raw_info']['step_type']) == '0':
@@ -18,9 +18,9 @@ class Tutorial_start_freq(FeatureCount):
         else:
             return 0
 
-class Tutorial_finish_freq(FeatureCount):
+class Tutorial_finish(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'Tutorial_finish_freq', 'Tutorial')
+        FeatureCount.__init__(self, 'Tutorial_finish', 'Tutorial')
 
     def __parse__(self, item):
         if str(item['raw_info']['step_type']) == '1':

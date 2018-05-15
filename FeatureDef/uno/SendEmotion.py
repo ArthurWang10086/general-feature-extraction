@@ -6,33 +6,33 @@ class SendEmotion_freq(FeatureCount):
         FeatureCount.__init__(self, 'SendEmotion_freq', 'SendEmotion')
 
 
-class SendEmotion_type1_freq(FeatureCount):
+class SendEmotion_type1(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'SendEmotion_type1_freq', 'SendEmotion')
+        FeatureCount.__init__(self, 'SendEmotion_type1', 'SendEmotion')
 
     def __parse__(self, item):
         return 1 if str(item['raw_info']['emotionType']) == '1' else None
 
 
-class SendEmotion_type2_freq(FeatureCount):
+class SendEmotion_type2(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'SendEmotion_type2_freq', 'SendEmotion')
+        FeatureCount.__init__(self, 'SendEmotion_type2', 'SendEmotion')
 
     def __parse__(self, item):
         return 1 if str(item['raw_info']['emotionType']) == '2' else None
 
 
-class SendEmotion_type3_freq(FeatureCount):
+class SendEmotion_type3(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'SendEmotion_type3_freq', 'SendEmotion')
+        FeatureCount.__init__(self, 'SendEmotion_type3', 'SendEmotion')
 
     def __parse__(self, item):
         return 1 if str(item['raw_info']['emotionType']) == '3' else None
 
 
-class SendEmotion_type4_freq(FeatureCount):
+class SendEmotion_type4(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'SendEmotion_type4_freq', 'SendEmotion')
+        FeatureCount.__init__(self, 'SendEmotion_type4', 'SendEmotion')
 
     def __parse__(self, item):
         return 1 if str(item['raw_info']['emotionType']) == '4' else None

@@ -7,9 +7,18 @@ class UnoRoomPlayReviewOneLog_freq(FeatureCount):
     def __init__(self):
         FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_freq', 'UnoRoomPlayReviewOneLog')
 
+class UnoRoomPlayReviewOneLog_init(Feature):
+    def __init__(self):
+        Feature.__init__(self, 'UnoRoomPlayReviewOneLog_init', 'UnoRoomPlayReviewOneLog')
 
-class UnoRoomPlayReviewOneLog_post_freq(FeatureCount):
-    def __init__(self, name='UnoRoomPlayReviewOneLog_post_freq', log='UnoRoomPlayReviewOneLog'):
+    def __parse__(self, item):
+        if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
+            return len(json.loads(item['raw_info']['InfoStr'])['CardList'])
+        else:
+            return None
+
+class UnoRoomPlayReviewOneLog_post(FeatureCount):
+    def __init__(self, name='UnoRoomPlayReviewOneLog_post', log='UnoRoomPlayReviewOneLog'):
         FeatureCount.__init__(self, name, log)
 
     def __parse__(self, item):
@@ -19,8 +28,8 @@ class UnoRoomPlayReviewOneLog_post_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_get_freq(FeatureCount):
-    def __init__(self, name='UnoRoomPlayReviewOneLog_get_freq', log='UnoRoomPlayReviewOneLog'):
+class UnoRoomPlayReviewOneLog_get(FeatureCount):
+    def __init__(self, name='UnoRoomPlayReviewOneLog_get', log='UnoRoomPlayReviewOneLog'):
         FeatureCount.__init__(self, name, log)
 
     def __parse__(self, item):
@@ -30,8 +39,8 @@ class UnoRoomPlayReviewOneLog_get_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_timeover_freq(FeatureCount):
-    def __init__(self, name='UnoRoomPlayReviewOneLog_timeover_freq', log='UnoRoomPlayReviewOneLog'):
+class UnoRoomPlayReviewOneLog_timeover(FeatureCount):
+    def __init__(self, name='UnoRoomPlayReviewOneLog_timeover', log='UnoRoomPlayReviewOneLog'):
         FeatureCount.__init__(self, name, log)
 
     def __parse__(self, item):
@@ -76,9 +85,9 @@ class UnoRoomPlayReviewOneLog_timeconsume_max(UnoRoomPlayReviewOneLog_timeconsum
         return max(self.L)
 
 
-class UnoRoomPlayReviewOneLog_postmagiccard_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_postmagiccard(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_postmagiccard_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_postmagiccard', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
@@ -87,9 +96,9 @@ class UnoRoomPlayReviewOneLog_postmagiccard_freq(FeatureCount):
         return None
 
 
-class UnoRoomPlayReviewOneLog_postpowercard_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_postpowercard(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_postpowercard_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_postpowercard', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
@@ -97,10 +106,22 @@ class UnoRoomPlayReviewOneLog_postpowercard_freq(FeatureCount):
                 return 1
         return None
 
-
-class UnoRoomPlayReviewOneLog_getmagiccard_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_initmagiccard(Feature):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_getmagiccard_freq', 'UnoRoomPlayReviewOneLog')
+        Feature.__init__(self, 'UnoRoomPlayReviewOneLog_initmagiccard', 'UnoRoomPlayReviewOneLog')
+
+    def __parse__(self, item):
+        count = 0
+        if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
+            D = json.loads(item['raw_info']['InfoStr'])['CardList']
+            for card in D:
+                if str(card) in ('1', '2'):
+                    count = count + 1
+        return count
+
+class UnoRoomPlayReviewOneLog_getmagiccard(FeatureCount):
+    def __init__(self):
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_getmagiccard', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         count = 0
@@ -111,10 +132,22 @@ class UnoRoomPlayReviewOneLog_getmagiccard_freq(FeatureCount):
                     count = count + 1
         return count
 
-
-class UnoRoomPlayReviewOneLog_getpowercard_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_initpowercard(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_getpowercard_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_initpowercard', 'UnoRoomPlayReviewOneLog')
+
+    def __parse__(self, item):
+        count = 0
+        if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
+            D = json.loads(item['raw_info']['InfoStr'])['CardList']
+            for card in D:
+                if str(card)[-2:] in ('01', '02', '03', '04'):
+                    count = count + 1
+        return count
+
+class UnoRoomPlayReviewOneLog_getpowercard(FeatureCount):
+    def __init__(self):
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_getpowercard', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         count = 0
@@ -126,9 +159,9 @@ class UnoRoomPlayReviewOneLog_getpowercard_freq(FeatureCount):
         return count
 
 
-class UnoRoomPlayReviewOneLog_argue_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_argue(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_argue_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_argue', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
@@ -137,9 +170,9 @@ class UnoRoomPlayReviewOneLog_argue_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_arguesuccess_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_arguesuccess(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_arguesuccess_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_arguesuccess', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
@@ -148,9 +181,9 @@ class UnoRoomPlayReviewOneLog_arguesuccess_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_arguehappen_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_arguehappen(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_arguehappen_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_arguehappen', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
@@ -159,20 +192,9 @@ class UnoRoomPlayReviewOneLog_arguehappen_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_unomay_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_unomay(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_unomay_freq', 'UnoRoomPlayReviewOneLog')
-
-    def __parse__(self, item):
-        if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return 1
-        else:
-            return None
-
-
-class UnoRoomPlayReviewOneLog_uno_freq(FeatureCount):
-    def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_uno_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_unomay', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
@@ -181,9 +203,10 @@ class UnoRoomPlayReviewOneLog_uno_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_catchcause_freq(FeatureCount):
+
+class UnoRoomPlayReviewOneLog_catchcause(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
@@ -192,9 +215,9 @@ class UnoRoomPlayReviewOneLog_catchcause_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_catchcause1_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_catchcause1(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause1_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause1', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
@@ -203,9 +226,9 @@ class UnoRoomPlayReviewOneLog_catchcause1_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_catchcause2_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_catchcause2(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause2_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause2', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
@@ -214,9 +237,9 @@ class UnoRoomPlayReviewOneLog_catchcause2_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_catchcause3_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_catchcause3(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause3_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause3', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
@@ -225,9 +248,9 @@ class UnoRoomPlayReviewOneLog_catchcause3_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_catchcause4_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_catchcause4(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause4_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause4', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
@@ -236,9 +259,9 @@ class UnoRoomPlayReviewOneLog_catchcause4_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_catchcause5_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_catchcause5(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause5_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause5', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
@@ -247,9 +270,9 @@ class UnoRoomPlayReviewOneLog_catchcause5_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_catchcause6_freq(FeatureCount):
+class UnoRoomPlayReviewOneLog_catchcause6(FeatureCount):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause6_freq', 'UnoRoomPlayReviewOneLog')
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause6', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
@@ -258,9 +281,9 @@ class UnoRoomPlayReviewOneLog_catchcause6_freq(FeatureCount):
             return None
 
 
-class UnoRoomPlayReviewOneLog_forcerule(FeatureCount):
+class UnoRoomPlayReviewOneLog_forcerule(Feature):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_forcerule', 'UnoRoomPlayReviewOneLog')
+        Feature.__init__(self, 'UnoRoomPlayReviewOneLog_forcerule', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':

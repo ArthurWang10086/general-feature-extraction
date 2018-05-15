@@ -5,6 +5,7 @@ from Utils.GetRoleId import GetRoleId
 from Utils.GetSerialId import GetSerialId
 from Utils.GetAllFiles import GetAllFiles
 from Utils.GlobalVariable import GlobalVariable
+from Utils.DropDuplicate import DropDuplicate
 from Utils.not_None import not_None
 from TimeSplit.OneGameSplit import OneGameSplit
 from PlayerSplit.H5PlayerSplit import H5PlayerSplit
@@ -13,25 +14,25 @@ from FeatureDef.uno import *
 featurenames=['LoginRole_freq','LoginRole_rolelevel'
     ,'LogoutRole_expsum','Trade_FFirst_coins_change'
     ,'Trade_Final_coins'
-    ,'ShareLog_freq','InviteLog_freq','Invite_and_get_into_room','Invite_and_start_game','FollowLog_freq','AdsLog_freq'
-    ,'AdsLog_type','AddAchievement_freq','AddExp_freq','Backpack_freq','ConsumeItem_freq'
+    ,'AddAchievement_freq','AddExp_freq','Backpack_freq','ConsumeItem_freq'
     ,'DailySign_freq','DailySignReward_freq','DailyTaskFinish_freq','DailyTaskReward_freq','GradeUp_final_grade'
     ,'GradeUp_final_exp','MatchInfo_freq'
     ,'MatchInfo_timeavg','MatchInfo_timemax','MatchInfo_timemin','PraisePlayRound_freq','QuickMatch1V1_freq','QuickMatch1V1_winratio'
     ,'F1QuickMatch1V1_winratio','QuickMatch1V1_rank','F1QuickMatch1V1_rank','QuickMatch2V2_freq','QuickMatch2V2_winratio'
     ,'F1QuickMatch2V2_winratio','ReplaceRole_freq','RewardAchievement_freq'
-    ,'RoomModeCreate_freq','RoomModeCreate_mode','SendEmotion_freq','SendEmotion_type1_freq','SendEmotion_type2_freq'
-    ,'SendEmotion_type3_freq','SendEmotion_type4_freq','SendGift_freq','SendGift_amount','UnoRoomPlayReviewOneLog_freq'
+    ,'RoomModeCreate_freq','RoomModeCreate_mode','SendEmotion_freq','SendEmotion_type1','SendEmotion_type2'
+    ,'SendEmotion_type3','SendEmotion_type4','SendGift_freq','SendGift_amount','UnoRoomPlayReviewOneLog_freq'
     ,'UnoRoomPlayReviewOneLog_timeconsume_average','UnoRoomPlayReviewOneLog_timeconsume_min','UnoRoomPlayReviewOneLog_timeconsume_max'
-    ,'UnoRoomPlayReviewOneLog_postmagiccard_freq','UnoRoomPlayReviewOneLog_postpowercard_freq','UnoRoomPlayReviewOneLog_getmagiccard_freq'
-    ,'UnoRoomPlayReviewOneLog_getpowercard_freq','UnoRoomPlayReviewOneLog_argue_freq'
-    ,'UnoRoomPlayReviewOneLog_arguesuccess_freq','UnoRoomPlayReviewOneLog_arguehappen_freq','UnoRoomPlayReviewOneLog_unomay_freq'
-    ,'UnoRoomPlayReviewOneLog_uno_freq','UnoRoomPlayReviewOneLog_catchcause_freq','UnoRoomPlayReviewOneLog_catchcause1_freq'
-    ,'UnoRoomPlayReviewOneLog_catchcause2_freq','UnoRoomPlayReviewOneLog_catchcause3_freq','UnoRoomPlayReviewOneLog_catchcause4_freq'
-    ,'UnoRoomPlayReviewOneLog_catchcause5_freq','UnoRoomPlayReviewOneLog_catchcause6_freq','UnoRoomPlayReviewOneLog_forcerule'
-    ,'UnoRoomPlayReviewOneLog_remainnum','UnoRoomPlayReviewOneLog_post_freq','UnoRoomPlayReviewOneLog_get_freq'
-    ,'UnoRoomPlayReviewOneLog_timeover_freq'
-    ,'Tutorial_freq','Tutorial_start_freq','Tutorial_finish_freq','Tutorial_start_plus4','Tutorial_start_2v2','Tutorial_start_uno'
+    ,'UnoRoomPlayReviewOneLog_postmagiccard','UnoRoomPlayReviewOneLog_postpowercard'
+    ,'UnoRoomPlayReviewOneLog_initmagiccard','UnoRoomPlayReviewOneLog_initpowercard'
+    ,'UnoRoomPlayReviewOneLog_getmagiccard','UnoRoomPlayReviewOneLog_getpowercard','UnoRoomPlayReviewOneLog_argue'
+    ,'UnoRoomPlayReviewOneLog_arguesuccess','UnoRoomPlayReviewOneLog_arguehappen','UnoRoomPlayReviewOneLog_unomay'
+    ,'UnoRoomPlayReviewOneLog_catchcause','UnoRoomPlayReviewOneLog_catchcause1'
+    ,'UnoRoomPlayReviewOneLog_catchcause2','UnoRoomPlayReviewOneLog_catchcause3','UnoRoomPlayReviewOneLog_catchcause4'
+    ,'UnoRoomPlayReviewOneLog_catchcause5','UnoRoomPlayReviewOneLog_catchcause6','UnoRoomPlayReviewOneLog_forcerule'
+    ,'UnoRoomPlayReviewOneLog_remainnum','UnoRoomPlayReviewOneLog_post','UnoRoomPlayReviewOneLog_get','UnoRoomPlayReviewOneLog_init'
+    ,'UnoRoomPlayReviewOneLog_timeover'
+    ,'Tutorial_freq','Tutorial_start','Tutorial_finish','Tutorial_start_plus4','Tutorial_start_2v2','Tutorial_start_uno'
     ,'Tutorial_start_friend','Tutorial_finish_plus4'
     ,'Tutorial_finish_2v2','Tutorial_finish_uno','Tutorial_finish_friend','Tutorial_usetime_plus4','Tutorial_usetime_2v2'
     ,'Tutorial_usetime_uno','Tutorial_usetime_friend']
@@ -48,7 +49,7 @@ if __name__ == '__main__':
         features.append(eval(featurename+'()'))
 
     filelist = GetAllFiles(args.dir)
-    #filelist = ['1.json','2.json']
+    filelist = ['1.json']
     PlayerSplit = H5PlayerSplit()
     TimeSplit = OneGameSplit()
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
@@ -65,6 +66,7 @@ if __name__ == '__main__':
                 print('now:',count)
             data = f.read()
             items = json.loads(data)
+            items = DropDuplicate(items)
             role_id = GetRoleId(items)
             GlobalVariable.role_id = role_id
             endtime = TimeSplit.run(items)
