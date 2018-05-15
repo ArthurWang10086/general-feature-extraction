@@ -25,7 +25,7 @@ class UnoRoomPlayReviewOneLog_post(FeatureCount):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
             return 1
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_get(FeatureCount):
@@ -36,8 +36,17 @@ class UnoRoomPlayReviewOneLog_get(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1
         else:
-            return None
+            return 0
 
+class UnoRoomPlayReviewOneLog_get_num(FeatureCount):
+    def __init__(self, name='UnoRoomPlayReviewOneLog_get', log='UnoRoomPlayReviewOneLog'):
+        FeatureCount.__init__(self, name, log)
+
+    def __parse__(self, item):
+        if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
+            return len(json.loads(item['raw_info']['InfoStr'])['CardsList'])
+        else:
+            return 0
 
 class UnoRoomPlayReviewOneLog_timeover(FeatureCount):
     def __init__(self, name='UnoRoomPlayReviewOneLog_timeover', log='UnoRoomPlayReviewOneLog'):
@@ -93,7 +102,7 @@ class UnoRoomPlayReviewOneLog_postmagiccard(FeatureCount):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
             if str(json.loads(item['raw_info']['InfoStr'])['CardType']) in ['1', '2']:
                 return 1
-        return None
+        return 0
 
 
 class UnoRoomPlayReviewOneLog_postpowercard(FeatureCount):
@@ -104,7 +113,7 @@ class UnoRoomPlayReviewOneLog_postpowercard(FeatureCount):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
             if str(json.loads(item['raw_info']['InfoStr'])['CardType'])[-2:] in ['01', '02', '03', '04']:
                 return 1
-        return None
+        return 0
 
 class UnoRoomPlayReviewOneLog_initmagiccard(Feature):
     def __init__(self):
@@ -167,7 +176,7 @@ class UnoRoomPlayReviewOneLog_argue(FeatureCount):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
             return 1
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_arguesuccess(FeatureCount):
@@ -178,7 +187,7 @@ class UnoRoomPlayReviewOneLog_arguesuccess(FeatureCount):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['Result'] else 0
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_arguehappen(FeatureCount):
@@ -189,7 +198,7 @@ class UnoRoomPlayReviewOneLog_arguehappen(FeatureCount):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['IsChallenge'] else 0
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_unomay(FeatureCount):
@@ -200,9 +209,17 @@ class UnoRoomPlayReviewOneLog_unomay(FeatureCount):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['UnoDeclared'] else 0
         else:
-            return None
+            return 0
 
+class UnoRoomPlayReviewOneLog_unohappen(FeatureCount):
+    def __init__(self):
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_unohappen', 'UnoRoomPlayReviewOneLog')
 
+    def __parse__(self, item):
+        if item['raw_info']['TypeStr'] == 'OtherDeclareUnoStatus':
+            return 1
+        else:
+            return 0
 
 class UnoRoomPlayReviewOneLog_catchcause(FeatureCount):
     def __init__(self):
@@ -212,7 +229,7 @@ class UnoRoomPlayReviewOneLog_catchcause(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_catchcause1(FeatureCount):
@@ -223,7 +240,7 @@ class UnoRoomPlayReviewOneLog_catchcause1(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 1 else 0
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_catchcause2(FeatureCount):
@@ -234,7 +251,7 @@ class UnoRoomPlayReviewOneLog_catchcause2(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 2 else 0
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_catchcause3(FeatureCount):
@@ -245,7 +262,7 @@ class UnoRoomPlayReviewOneLog_catchcause3(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 3 else 0
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_catchcause4(FeatureCount):
@@ -256,7 +273,7 @@ class UnoRoomPlayReviewOneLog_catchcause4(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 4 else 0
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_catchcause5(FeatureCount):
@@ -267,7 +284,7 @@ class UnoRoomPlayReviewOneLog_catchcause5(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 5 else 0
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_catchcause6(FeatureCount):
@@ -278,7 +295,7 @@ class UnoRoomPlayReviewOneLog_catchcause6(FeatureCount):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 6 else 0
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_forcerule(Feature):
@@ -289,7 +306,7 @@ class UnoRoomPlayReviewOneLog_forcerule(Feature):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 0 if json.loads(item['raw_info']['InfoStr'])['IsForcePlay'] == 'false' else 1
         else:
-            return None
+            return 0
 
 
 class UnoRoomPlayReviewOneLog_remainnum(FeatureCount):
