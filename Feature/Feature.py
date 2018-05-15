@@ -30,7 +30,7 @@ class Feature(object):
         try:
             if self.value != None:
                 tmp = self.__process__()
-                print(self.name,tmp)
+                #print(self.name,tmp)
                 self.value = None
                 return str(tmp) if str(tmp) != 'None' else '-1'
             else:
