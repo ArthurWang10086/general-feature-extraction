@@ -132,9 +132,9 @@ class UnoRoomPlayReviewOneLog_getmagiccard(FeatureCount):
                     count = count + 1
         return count
 
-class UnoRoomPlayReviewOneLog_initpowercard(FeatureCount):
+class UnoRoomPlayReviewOneLog_initpowercard(Feature):
     def __init__(self):
-        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_initpowercard', 'UnoRoomPlayReviewOneLog')
+        Feature.__init__(self, 'UnoRoomPlayReviewOneLog_initpowercard', 'UnoRoomPlayReviewOneLog')
 
     def __parse__(self, item):
         count = 0
