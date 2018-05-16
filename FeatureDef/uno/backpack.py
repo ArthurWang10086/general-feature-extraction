@@ -14,3 +14,10 @@ class Backpack_reason(Feature):
 
     def __parse__(self, item):
         return item['raw_info']['item_reason']
+
+class Backpack_time(Feature):
+    def __init__(self):
+        Feature.__init__(self, 'Backpack_time', 'backpack')
+
+    def __parse__(self, item):
+        return item['raw_info']['time']

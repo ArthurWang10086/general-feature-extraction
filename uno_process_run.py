@@ -35,7 +35,16 @@ featurenames=['LoginRole_freq','LoginRole_rolelevel'
     ,'Tutorial_freq','Tutorial_start','Tutorial_finish','Tutorial_start_plus4','Tutorial_start_2v2','Tutorial_start_uno'
     ,'Tutorial_start_friend','Tutorial_finish_plus4'
     ,'Tutorial_finish_2v2','Tutorial_finish_uno','Tutorial_finish_friend','Tutorial_usetime_plus4','Tutorial_usetime_2v2'
-    ,'Tutorial_usetime_uno','Tutorial_usetime_friend']
+    ,'Tutorial_usetime_uno','Tutorial_usetime_friend'
+    ,'AddAchievement_time'
+    ,'Backpack_time'
+    ,'ConsumeItem_time'
+    ,'DailyReward_time'
+    ,'DailySign_time'
+    ,'DailySignReward_time'
+    ,'DailyTaskFinish_time'
+    ,'DailyTaskReward_time'
+    ,'MatchInfo_time']
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'manual to this script')
@@ -49,7 +58,7 @@ if __name__ == '__main__':
         features.append(eval(featurename+'()'))
 
     filelist = GetAllFiles(args.dir)
-    #filelist = ['1.json']
+    filelist = ['1.json']
     PlayerSplit = H5PlayerSplit()
     TimeSplit = OneGameSplit()
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]

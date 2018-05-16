@@ -1,10 +1,17 @@
 from Feature.FeatureCount import FeatureCount
-
+from Feature.Feature import Feature
 
 # MatchInfo_freq - 匹配频度（一共参与匹配游戏的次数频度）  MatchInfo
 class MatchInfo_freq(FeatureCount):
     def __init__(self):
         FeatureCount.__init__(self, 'MatchInfo_freq', 'MatchInfo')
+
+class MatchInfo_time(Feature):
+    def __init__(self):
+        Feature.__init__(self, 'MatchInfo_time', 'MatchInfo')
+
+    def __parse__(self, item):
+        return item['raw_info']['start_match_time']
 
 
 # MatchInfo_timeavg - 平均匹配耗时    MatchInfo  end_match_time-start_match_time
