@@ -92,7 +92,6 @@ if __name__ == '__main__':
                 for feature in features:
                     featureData.append(feature.run())
                 itemDatas.append([label,role_id,SerialId,featureData[:]])
-                print(itemDatas)
 
 
     with open('data/'+dirIndex+'_'+resourcename+'_result.txt','w') as f:
