@@ -20,7 +20,7 @@ if __name__=='__main__':
     df_log['UnoRoomPlayReviewOneLog_postovertime_ratio']= df_log['UnoRoomPlayReviewOneLog_timeover']/df_log['UnoRoomPlayReviewOneLog_post']
     df_log['RewardAchievement_ratio']= df_log['RewardAchievement_freq']/df_log['AddAchievement_freq']
     df_log['DailySignReward_ratio']= df_log['DailySignReward_freq']/df_log['DailySign_freq']
-    df_log['DailyTaskReward_ratio']= df_log['DailyTaskReward_freq']/df_log['DailyTaskFinish_freq']
+    #df_log['DailyTaskReward_ratio']= df_log['DailyTaskReward_freq']/df_log['DailyTaskFinish_freq']
     df_log['DailySignReward_timediff']= df_log['DailySignReward_time']-df_log['LoginRole_logintime']
     df_log['DailyTaskFinish_timediff']=df_log['DailyTaskFinish_time']-df_log['LoginRole_logintime']
     df_log['MatchInfo_timediff']=df_log['MatchInfo_time']-df_log['LoginRole_logintime']
@@ -31,7 +31,7 @@ if __name__=='__main__':
     df_log['AddAchievement_timediff']=df_log['AddAchievement_time']-df_log['LoginRole_logintime']
     add_featurenames=['UnoRoomPlayReviewOneLog_postmagiccard_ratio','UnoRoomPlayReviewOneLog_postpowercard_ratio'
                       ,'UnoRoomPlayReviewOneLog_post_ratio','UnoRoomPlayReviewOneLog_postovertime_ratio'
-                      ,'RewardAchievement_ratio','DailySignReward_ratio','DailyTaskReward_ratio','DailySignReward_timediff'
+                      ,'RewardAchievement_ratio','DailySignReward_ratio','DailySignReward_timediff'
                       ,'DailyTaskFinish_timediff','MatchInfo_timediff','DailySign_timediff','DailyReward_timediff'
                       ,'ConsumeItem_timediff','Backpack_timediff','AddAchievement_timediff']
 
