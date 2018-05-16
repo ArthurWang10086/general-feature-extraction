@@ -126,7 +126,9 @@ class UnoRoomPlayReviewOneLog_initmagiccard(Feature):
             for card in D:
                 if str(card) in ('1', '2'):
                     count = count + 1
-        return count
+            return count
+        else:
+            return None
 
 class UnoRoomPlayReviewOneLog_getmagiccard(FeatureCount):
     def __init__(self):
@@ -152,7 +154,9 @@ class UnoRoomPlayReviewOneLog_initpowercard(Feature):
             for card in D:
                 if str(card)[-2:] in ('01', '02', '03', '04'):
                     count = count + 1
-        return count
+            return count
+        else:
+            return None
 
 class UnoRoomPlayReviewOneLog_getpowercard(FeatureCount):
     def __init__(self):
@@ -306,7 +310,7 @@ class UnoRoomPlayReviewOneLog_forcerule(Feature):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 0 if json.loads(item['raw_info']['InfoStr'])['IsForcePlay'] == 'false' else 1
         else:
-            return 0
+            return None
 
 
 class UnoRoomPlayReviewOneLog_remainnum(FeatureCount):
