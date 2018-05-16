@@ -15,7 +15,7 @@ if __name__=='__main__':
     df_log=df_log[df_log['RoomModeCreate_freq']<1]
     df_log['UnoRoomPlayReviewOneLog_postmagiccard_ratio']=df_log['UnoRoomPlayReviewOneLog_postmagiccard']/(df_log['UnoRoomPlayReviewOneLog_getmagiccard']+df_log['UnoRoomPlayReviewOneLog_initmagiccard'])
     df_log['UnoRoomPlayReviewOneLog_postpowercard_ratio']=df_log['UnoRoomPlayReviewOneLog_postpowercard']/(df_log['UnoRoomPlayReviewOneLog_getpowercard']+df_log['UnoRoomPlayReviewOneLog_initpowercard'])
-    df_log['UnoRoomPlayReviewOneLog_uno_ratio']=df_log['UnoRoomPlayReviewOneLog_unomay']/df_log['UnoRoomPlayReviewOneLog_unohappen']
+    #df_log['UnoRoomPlayReviewOneLog_uno_ratio']=df_log['UnoRoomPlayReviewOneLog_unomay']/df_log['UnoRoomPlayReviewOneLog_unohappen']
     df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['UnoRoomPlayReviewOneLog_get_num']
     df_log['UnoRoomPlayReviewOneLog_postovertime_ratio']= df_log['UnoRoomPlayReviewOneLog_timeover']/df_log['UnoRoomPlayReviewOneLog_post']
     df_log['RewardAchievement_ratio']= df_log['RewardAchievement_freq']/df_log['AddAchievement_freq']
@@ -30,7 +30,7 @@ if __name__=='__main__':
     df_log['Backpack_timediff']=df_log['Backpack_time']-df_log['LoginRole_logintime']
     df_log['AddAchievement_timediff']=df_log['AddAchievement_time']-df_log['LoginRole_logintime']
     add_featurenames=['UnoRoomPlayReviewOneLog_postmagiccard_ratio','UnoRoomPlayReviewOneLog_postpowercard_ratio'
-                      ,'UnoRoomPlayReviewOneLog_uno_ratio','UnoRoomPlayReviewOneLog_post_ratio','UnoRoomPlayReviewOneLog_postovertime_ratio'
+                      ,'UnoRoomPlayReviewOneLog_post_ratio','UnoRoomPlayReviewOneLog_postovertime_ratio'
                       ,'RewardAchievement_ratio','DailySignReward_ratio','DailyTaskReward_ratio','DailySignReward_timediff'
                       ,'DailyTaskFinish_timediff','MatchInfo_timediff','DailySign_timediff','DailyReward_timediff'
                       ,'ConsumeItem_timediff','Backpack_timediff','AddAchievement_timediff']
