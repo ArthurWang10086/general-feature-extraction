@@ -31,7 +31,7 @@ class FeatureCount(object):
         try:
             if len(self.L) > 0:
                 tmp = self.__process__()
-                print(self.name,tmp)
+                #print(self.name,tmp)
                 self.L = []
                 return str(tmp) if str(tmp) != 'None' else '-1'
             else:
