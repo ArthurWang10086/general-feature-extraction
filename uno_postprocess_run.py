@@ -11,6 +11,35 @@ if __name__=='__main__':
 
     log_featurenames = ['label','role_id','SerialId']+uno_process_run.featurenames
     df_log=pd.read_table(log_feature_filename,sep='|',names=log_featurenames)
+    df_log=df_log[df_log['MatchInfo_freq']>0]
+    df_log=df_log[df_log['RoomModeCreate_freq']<1]
+    df_log['UnoRoomPlayReviewOneLog_postmagiccard_ratio']=df_log['UnoRoomPlayReviewOneLog_postmagiccard']/(df_log['UnoRoomPlayReviewOneLog_getmagiccard']+df_log['UnoRoomPlayReviewOneLog_initmagiccard'])
+    df_log['UnoRoomPlayReviewOneLog_postpowercard_ratio']=df_log['UnoRoomPlayReviewOneLog_postpowercard']/(df_log['UnoRoomPlayReviewOneLog_getpowercard']+df_log['UnoRoomPlayReviewOneLog_initpowercard'])
+    df_log['UnoRoomPlayReviewOneLog_uno_ratio']=df_log['UnoRoomPlayReviewOneLog_unomay']/df_log['UnoRoomPlayReviewOneLog_unohappen']
+    df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['UnoRoomPlayReviewOneLog_get_num']
+    df_log['UnoRoomPlayReviewOneLog_postovertime_ratio']= df_log['UnoRoomPlayReviewOneLog_timeover']/df_log['UnoRoomPlayReviewOneLog_post']
+    df_log['RewardAchievement_ratio']= df_log['RewardAchievement_freq']/df_log['AddAchievement_freq']
+    df_log['DailySignReward_ratio']= df_log['DailySignReward_freq']/df_log['DailySign_freq']
+    df_log['DailyTaskReward_ratio']= df_log['DailyTaskReward_freq']/df_log['DailyTaskFinish_freq']
+    df_log['DailySignReward_timediff']= df_log['DailySignReward_time']-df_log['LoginRole_logintime']
+    df_log['DailyTaskFinish_timediff']=df_log['DailyTaskFinish_time']-df_log['LoginRole_logintime']
+    df_log['MatchInfo_timediff']=df_log['MatchInfo_time']-df_log['LoginRole_logintime']
+    df_log['DailySign_timediff']=df_log['DailySign_time']-df_log['LoginRole_logintime']
+    df_log['DailyReward_timediff']=df_log['DailyReward_time']-df_log['LoginRole_logintime']
+    df_log['ConsumeItem_timediff']=df_log['ConsumeItem_time']-df_log['LoginRole_logintime']
+    df_log['Backpack_timediff']=df_log['Backpack_time']-df_log['LoginRole_logintime']
+    df_log['AddAchievement_timediff']=df_log['AddAchievement_time']-df_log['LoginRole_logintime']
+    add_featurenames=['UnoRoomPlayReviewOneLog_postmagiccard_ratio','UnoRoomPlayReviewOneLog_postpowercard_ratio'
+                      ,'UnoRoomPlayReviewOneLog_uno_ratio','UnoRoomPlayReviewOneLog_post_ratio','UnoRoomPlayReviewOneLog_postovertime_ratio'
+                      ,'RewardAchievement_ratio','DailySignReward_ratio','DailyTaskReward_ratio','DailySignReward_timediff'
+                      ,'DailyTaskFinish_timediff','MatchInfo_timediff','DailySign_timediff','DailyReward_timediff'
+                      ,'ConsumeItem_timediff','Backpack_timediff','AddAchievement_timediff']
+
+
+
+    df_log.to_csv(log_feature_filename+'.2', sep='|',index=False,header=False)
+
+
     hive_featurenames = ['SerialId','getusetimemin','gettimeaverage'
         ,'getusetimemax' ,'postusetimemin','posttimeaverage'
         ,'postusetimemax','unocount','date']
@@ -26,7 +55,7 @@ if __name__=='__main__':
 
 
     with open(log_featurename_filename,'w') as f2:
-        names = ['label','role_id','SerialId']+uno_process_run.featurenames + hive_featurenames[1:-1]
+        names = ['label','role_id','SerialId']+uno_process_run.featurenames+add_featurenames+hive_featurenames[1:-1]
         print(names)
         tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
