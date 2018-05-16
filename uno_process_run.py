@@ -15,13 +15,13 @@ featurenames=['LoginRole_freq','LoginRole_rolelevel','LoginRole_logintime'
     ,'LogoutRole_expsum','Trade_FFirst_coins_change'
     ,'Trade_Final_coins'
     ,'AddAchievement_freq','AddExp_freq','Backpack_freq','ConsumeItem_freq'
-    ,'DailySign_freq','DailySignReward_freq','DailyTaskFinish_freq','DailyTaskReward_freq','GradeUp_final_grade'
+    ,'DailySign_freq','DailySignReward_freq','DailyTaskFinish_freq','GradeUp_final_grade'
     ,'GradeUp_final_exp','MatchInfo_freq'
     ,'MatchInfo_timeavg','MatchInfo_timemax','MatchInfo_timemin','PraisePlayRound_freq','QuickMatch1V1_freq','QuickMatch1V1_winratio'
     ,'F1QuickMatch1V1_winratio','QuickMatch1V1_rank','F1QuickMatch1V1_rank','QuickMatch2V2_freq','QuickMatch2V2_winratio'
     ,'F1QuickMatch2V2_winratio','ReplaceRole_freq','RewardAchievement_freq'
-    ,'RoomModeCreate_freq','RoomModeCreate_mode','SendEmotion_freq','SendEmotion_type1','SendEmotion_type2'
-    ,'SendEmotion_type3','SendEmotion_type4','SendGift_freq','SendGift_amount','UnoRoomPlayReviewOneLog_freq'
+    ,'RoomModeCreate_freq','SendEmotion_freq','SendEmotion_type1','SendEmotion_type2'
+    ,'SendEmotion_type3','SendEmotion_type4','SendGift_freq','UnoRoomPlayReviewOneLog_freq'
     ,'UnoRoomPlayReviewOneLog_timeconsume_average','UnoRoomPlayReviewOneLog_timeconsume_min','UnoRoomPlayReviewOneLog_timeconsume_max'
     ,'UnoRoomPlayReviewOneLog_postmagiccard','UnoRoomPlayReviewOneLog_postpowercard'
     ,'UnoRoomPlayReviewOneLog_initmagiccard','UnoRoomPlayReviewOneLog_initpowercard'
@@ -43,7 +43,6 @@ featurenames=['LoginRole_freq','LoginRole_rolelevel','LoginRole_logintime'
     ,'DailySign_time'
     ,'DailySignReward_time'
     ,'DailyTaskFinish_time'
-    ,'DailyTaskReward_time'
     ,'MatchInfo_time']
 
 if __name__ == '__main__':
@@ -93,6 +92,7 @@ if __name__ == '__main__':
                 for feature in features:
                     featureData.append(feature.run())
                 itemDatas.append([label,role_id,SerialId,featureData[:]])
+                print(itemDatas)
 
 
     with open('data/'+dirIndex+'_'+resourcename+'_result.txt','w') as f:
