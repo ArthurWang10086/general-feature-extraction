@@ -11,7 +11,7 @@ from TimeSplit.OneGameSplit import OneGameSplit
 from PlayerSplit.H5PlayerSplit import H5PlayerSplit
 from PlayerSplit.AppPlayerSplit import AppPlayerSplit
 from FeatureDef.uno import *
-featurenames=['LoginRole_freq','LoginRole_rolelevel'
+featurenames=['LoginRole_freq','LoginRole_rolelevel','LoginRole_logintime'
     ,'LogoutRole_expsum','Trade_FFirst_coins_change'
     ,'Trade_Final_coins'
     ,'AddAchievement_freq','AddExp_freq','Backpack_freq','ConsumeItem_freq'
