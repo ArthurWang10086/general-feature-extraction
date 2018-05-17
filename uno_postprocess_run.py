@@ -1,9 +1,14 @@
 import pandas as pd
 import numpy as np
+import argparse
 import  uno_process_run
 if __name__=='__main__':
+    parser = argparse.ArgumentParser(description = 'manual to this script')
+    parser.add_argument('--date', type=str, default = '2018-04-12')
+    args = parser.parse_args()
     name = '/srv/uno-churn-service/uno/wangkai/general-feature-extraction/data/'
-    date='2018-04-12'
+    date = args.date
+    print(date)
     log_feature_filename = name+date+'_H5_result.txt'
     log_featurename_filename = name+date+'_H5_featurename.txt'
     log_featurename_filename_old = name+date+'_H5_featurename_old.txt.2'
