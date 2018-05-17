@@ -25,21 +25,19 @@ class UnoRoomPlayReviewOneLog_userremainnum(FeatureCount):
                 break
         L.remove(tmp)
         start = tmp[1]
-        if len(start)>0:
+        if len(start) > 0:
             for x in L:
                 if x[0] == 'CatchUnoCardResult':
-                    for (index,card) in dict(x[1]).items():
+                    for (index, card) in dict(x[1]).items():
                         start.append(card)
-                elif x[0] == 'StartUnoPlayOne':
-                    break
             for x in L:
                 if x[0] == 'PlayUnoCardResult':
-                    start.remove(x[1])
-                elif x[0] == 'StartUnoPlayOne':
-                    break
+                    if x[1] in start:
+                        start.remove(x[1])
             return len(start)
         else:
             return None
+
 
 class UnoRoomPlayReviewOneLog_userremainpowernum(FeatureCount):
     def __init__(self):
@@ -63,18 +61,15 @@ class UnoRoomPlayReviewOneLog_userremainpowernum(FeatureCount):
                 break
         L.remove(tmp)
         start = tmp[1]
-        if len(start)>0:
+        if len(start) > 0:
             for x in L:
                 if x[0] == 'CatchUnoCardResult':
-                    for (index,card) in dict(x[1]).items():
+                    for (index, card) in dict(x[1]).items():
                         start.append(card)
-                elif x[0] == 'StartUnoPlayOne':
-                    break
             for x in L:
                 if x[0] == 'PlayUnoCardResult':
-                    start.remove(x[1])
-                elif x[0] == 'StartUnoPlayOne':
-                    break
+                    if x[1] in start:
+                        start.remove(x[1])
             return sum([1 if str(x)[-2:] in ['01', '02', '03', '04'] else 0 for x in start])
         else:
             return None
@@ -102,18 +97,15 @@ class UnoRoomPlayReviewOneLog_userremainmagicnum(FeatureCount):
                 break
         L.remove(tmp)
         start = tmp[1]
-        if len(start)>0:
+        if len(start) > 0:
             for x in L:
                 if x[0] == 'CatchUnoCardResult':
-                    for (index,card) in dict(x[1]).items():
+                    for (index, card) in dict(x[1]).items():
                         start.append(card)
-                elif x[0] == 'StartUnoPlayOne':
-                    break
             for x in L:
                 if x[0] == 'PlayUnoCardResult':
-                    start.remove(x[1])
-                elif x[0] == 'StartUnoPlayOne':
-                    break
+                    if x[1] in start:
+                        start.remove(x[1])
             return sum([1 if str(x) in ['1', '2'] else 0 for x in start])
         else:
             return None
