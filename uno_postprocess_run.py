@@ -49,8 +49,18 @@ if __name__=='__main__':
                       ,'DailyTaskFinish_timediff','MatchInfo_timediff','DailySign_timediff','DailyReward_timediff'
                       ,'ConsumeItem_timediff','Backpack_timediff','AddAchievement_timediff']
 
-
-
+    remove_featurenames=['LoginRole_logintime','AddAchievement_time'
+        ,'Backpack_time'
+        ,'ConsumeItem_time'
+        ,'DailyReward_time'
+        ,'DailySign_time'
+        ,'DailySignReward_time'
+        ,'DailyTaskFinish_time'
+        ,'MatchInfo_time']
+    for x in remove_featurenames:
+        log_featurenames.remove(x)
+    log_featurenames=log_featurenames+add_featurenames
+    df_log=df_log[log_featurenames]
     df_log.to_csv(log_feature_filename+'.2', sep='|',index=False,header=False)
 
 
@@ -69,7 +79,7 @@ if __name__=='__main__':
 
 
     with open(log_featurename_filename,'w') as f2:
-        names = ['label','role_id','SerialId']+uno_process_run.featurenames+add_featurenames+hive_featurenames[1:-1]
+        names = log_featurenames+hive_featurenames[1:-1]
         print(names)
         tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
