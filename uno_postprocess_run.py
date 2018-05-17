@@ -60,6 +60,7 @@ if __name__=='__main__':
     for x in remove_featurenames:
         log_featurenames.remove(x)
     log_featurenames=log_featurenames+add_featurenames
+    print(log_featurenames)
     df_log=df_log[log_featurenames]
     df_log.to_csv(log_feature_filename+'.2', sep='|',index=False,header=False)
 
