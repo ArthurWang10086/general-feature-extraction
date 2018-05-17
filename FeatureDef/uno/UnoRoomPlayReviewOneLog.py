@@ -94,6 +94,29 @@ class UnoRoomPlayReviewOneLog_timeconsume_max(UnoRoomPlayReviewOneLog_timeconsum
         return max(self.L)
 
 
+class UnoRoomPlayReviewOneLog_postmagiccardovertime(FeatureCount):
+    def __init__(self):
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_postmagiccardovertime', 'UnoRoomPlayReviewOneLog')
+
+    def __parse__(self, item):
+        if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
+            if str(json.loads(item['raw_info']['InfoStr'])['CardType']) in ['1', '2'] and int(json.loads(item['raw_info']['InfoStr'])['UseTime']) >= 10:
+                return 1
+        return 0
+
+
+class UnoRoomPlayReviewOneLog_postpowercardovertime(FeatureCount):
+    def __init__(self):
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_postpowercardovertime', 'UnoRoomPlayReviewOneLog')
+
+    def __parse__(self, item):
+        if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
+            if str(json.loads(item['raw_info']['InfoStr'])['CardType'])[-2:] in ['01', '02', '03', '04'] and int(json.loads(item['raw_info']['InfoStr'])['UseTime']) >= 10:
+                return 1
+        return 0
+
+
+
 class UnoRoomPlayReviewOneLog_postmagiccard(FeatureCount):
     def __init__(self):
         FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_postmagiccard', 'UnoRoomPlayReviewOneLog')
@@ -267,8 +290,6 @@ class UnoRoomPlayReviewOneLog_catchcause3(FeatureCount):
             return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 3 else 0
         else:
             return 0
-
-
 class UnoRoomPlayReviewOneLog_catchcause4(FeatureCount):
     def __init__(self):
         FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause4', 'UnoRoomPlayReviewOneLog')
@@ -276,6 +297,26 @@ class UnoRoomPlayReviewOneLog_catchcause4(FeatureCount):
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
             return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 4 else 0
+        else:
+            return 0
+
+class UnoRoomPlayReviewOneLog_catchcause4_4(FeatureCount):
+    def __init__(self):
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause4_4', 'UnoRoomPlayReviewOneLog')
+
+    def __parse__(self, item):
+        if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
+            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 4 and len(json.loads(item['raw_info']['InfoStr'])['CardsList'])<5 else 0
+        else:
+            return 0
+
+class UnoRoomPlayReviewOneLog_catchcause4_6(FeatureCount):
+    def __init__(self):
+        FeatureCount.__init__(self, 'UnoRoomPlayReviewOneLog_catchcause4_6', 'UnoRoomPlayReviewOneLog')
+
+    def __parse__(self, item):
+        if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
+            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 4 and len(json.loads(item['raw_info']['InfoStr'])['CardsList'])>5 else 0
         else:
             return 0
 
