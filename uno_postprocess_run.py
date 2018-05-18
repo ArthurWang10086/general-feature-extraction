@@ -121,7 +121,7 @@ if __name__=='__main__':
     feature_dict={}
     f = open(name+'feature_dict.txt','r')
     feature_dict_datas=f.read().split('\n')
-    for feature_dict_data in feature_dict_datas[1:-1]:
+    for feature_dict_data in feature_dict_datas[:-1]:
         feature_dict_L = feature_dict_data.split('\t')
         feature_dict[feature_dict_L[0]]='\t'.join([feature_dict_L[1],feature_dict_L[2],feature_dict_L[3],feature_dict_L[4]])
 
