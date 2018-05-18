@@ -102,8 +102,6 @@ if __name__=='__main__':
     # df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['posttimeaverage']<1]=-1
     df['UnoRoomPlayReviewOneLog_unomay_four_ratio']= df['UnoRoomPlayReviewOneLog_unomay']/df['unocount']
     df['UnoRoomPlayReviewOneLog_unomay_four_ratio'][df['unocount']<1]=-1
-    df['UnoRoomPlayReviewOneLog_unomay_four_ratio']= df['UnoRoomPlayReviewOneLog_unomay']/df['unocount']
-    df['UnoRoomPlayReviewOneLog_unomay_four_ratio'][df['unocount']<1]=-1
     df['UnoRoomPlayReviewOneLog_argue_four_allhappenratio']= df['arguehappencount']/df['arguecount']
     df['UnoRoomPlayReviewOneLog_argue_four_allhappenratio'][df['arguecount']<0]=-1
     df['UnoRoomPlayReviewOneLog_argue_four_allhappenratio'][df['arguecount']==0]=0
@@ -128,7 +126,6 @@ if __name__=='__main__':
     print(feature_dict)
 
     with open(log_featurename_filename,'w') as f2:
-        names = log_featurenames+hive_featurenames[1:-1]+['UnoRoomPlayReviewOneLog_postusetime_four_ratio','UnoRoomPlayReviewOneLog_unomay_four_ratio']
         print(names)
         tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
