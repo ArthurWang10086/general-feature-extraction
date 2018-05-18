@@ -125,7 +125,7 @@ if __name__=='__main__':
         feature_dict_L = feature_dict_data.split('\t')
         feature_dict[feature_dict_L[0]]='\t'.join([feature_dict_L[1],feature_dict_L[2],feature_dict_L[3],feature_dict_L[4]])
 
-
+    print(feature_dict)
 
     with open(log_featurename_filename,'w') as f2:
         names = log_featurenames+hive_featurenames[1:-1]+['UnoRoomPlayReviewOneLog_postusetime_four_ratio','UnoRoomPlayReviewOneLog_unomay_four_ratio']
