@@ -49,13 +49,15 @@ if __name__=='__main__':
     df_log['Backpack_timediff'][df_log['Backpack_time']<0]=-1
     df_log['AddAchievement_timediff']=df_log['AddAchievement_time']-df_log['LoginRole_logintime']
     df_log['AddAchievement_timediff'][df_log['AddAchievement_time']<0]=-1
+    df_log['QuickMatch_playtime']=df_log['QuickMatch1V1_playtime']+df_log['QuickMatch2V2_playtime']
+    df_log['QuickMatch_playtime'][df_log['QuickMatch1V1_playtime']+df_log['QuickMatch2V2_playtime']<1]=-1
     add_featurenames=['UnoRoomPlayReviewOneLog_postmagiccard_ratio','UnoRoomPlayReviewOneLog_postpowercard_ratio'
                       ,'UnoRoomPlayReviewOneLog_uno_ratio'
                       ,'UnoRoomPlayReviewOneLog_post_ratio','UnoRoomPlayReviewOneLog_postovertime_ratio'
                       ,'RewardAchievement_ratio','DailySignReward_ratio','DailyTaskReward_ratio'
                       ,'DailySignReward_timediff'
                       ,'DailyTaskFinish_timediff','MatchInfo_timediff','DailySign_timediff'
-                      ,'ConsumeItem_timediff','Backpack_timediff','AddAchievement_timediff']
+                      ,'ConsumeItem_timediff','Backpack_timediff','AddAchievement_timediff','QuickMatch_playtime']
 
     remove_featurenames=['RoomModeCreate_freq','LoginRole_logintime','AddAchievement_time'
         ,'Backpack_time'
@@ -92,19 +94,20 @@ if __name__=='__main__':
 
     df = df_log.merge(df_hive,how = 'inner')
     df = df[df['UnoRoomPlayReviewOneLog_timeconsume_average']>0]
-    # df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['gettimeaverage']
-    # df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['UnoRoomPlayReviewOneLog_get_num']<1]=-1
+    df_log['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df_log['UnoRoomPlayReviewOneLog_timeconsume_average']/df_log['posttimeaverage']
+    df_log['UnoRoomPlayReviewOneLog_postusetime_four_ratio'][df_log['posttimeaverage']<1]=-1
     # df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['posttimeaverage']
-    # df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['UnoRoomPlayReviewOneLog_get_num']<1]=-1
-    # df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['unocount']
-    # df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['UnoRoomPlayReviewOneLog_get_num']<1]=-1
-
+    # df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['posttimeaverage']<1]=-1
+    df_log['UnoRoomPlayReviewOneLog_unomay_four_ratio']= df_log['UnoRoomPlayReviewOneLog_unomay']/df_log['unocount']
+    df_log['UnoRoomPlayReviewOneLog_unomay_four_ratio'][df_log['unocount']<1]=-1
+    names = log_featurenames+hive_featurenames[1:-1]+['UnoRoomPlayReviewOneLog_postusetime_four_ratio','UnoRoomPlayReviewOneLog_unomay_four_ratio']
+    df = df[names]
     df.fillna(value=0, inplace=True)
     df.to_csv(output_filename, sep='|',index=False,header=False)
 
 
     with open(log_featurename_filename,'w') as f2:
-        names = log_featurenames+hive_featurenames[1:-1]
+        names = log_featurenames+hive_featurenames[1:-1]+['UnoRoomPlayReviewOneLog_postusetime_four_ratio','UnoRoomPlayReviewOneLog_unomay_four_ratio']
         print(names)
         tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
