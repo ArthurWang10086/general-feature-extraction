@@ -132,7 +132,7 @@ if __name__=='__main__':
         print(names)
         tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
-        f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx' if str(x[1]) not in feature_dict_L else feature_dict_L[str(x[1])],'1','-1','0']) for x in tmp]))
+        f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx' if str(x[1]) not in feature_dict else feature_dict[str(x[1])],'1','-1','0']) for x in tmp]))
 
 
 
