@@ -65,7 +65,7 @@ if __name__=='__main__':
         ,'DailySign_time'
         ,'DailySignReward_time'
         ,'DailyTaskFinish_time'
-        ,'MatchInfo_time']
+        ,'MatchInfo_time','UnoRoomPlayReviewOneLog_init']
     for x in remove_featurenames:
         if x in log_featurenames:
             log_featurenames.remove(x)
