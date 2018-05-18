@@ -26,7 +26,7 @@ featurenames=['LoginRole_freq','LoginRole_rolelevel','LoginRole_logintime'
     ,'UnoRoomPlayReviewOneLog_postmagiccard','UnoRoomPlayReviewOneLog_postpowercard'
     ,'UnoRoomPlayReviewOneLog_initmagiccard','UnoRoomPlayReviewOneLog_initpowercard'
     ,'UnoRoomPlayReviewOneLog_getmagiccard','UnoRoomPlayReviewOneLog_getpowercard','UnoRoomPlayReviewOneLog_argue'
-    ,'UnoRoomPlayReviewOneLog_arguesuccess','UnoRoomPlayReviewOneLog_arguehappen','UnoRoomPlayReviewOneLog_unomay','UnoRoomPlayReviewOneLog_unohappen'
+    ,'UnoRoomPlayReviewOneLog_arguesuccess','UnoRoomPlayReviewOneLog_arguehappen','UnoRoomPlayReviewOneLog_unomay'
     ,'UnoRoomPlayReviewOneLog_catchcause','UnoRoomPlayReviewOneLog_catchcause1'
     ,'UnoRoomPlayReviewOneLog_catchcause2','UnoRoomPlayReviewOneLog_catchcause3','UnoRoomPlayReviewOneLog_catchcause4'
     ,'UnoRoomPlayReviewOneLog_catchcause4_4','UnoRoomPlayReviewOneLog_catchcause4_6'
@@ -45,7 +45,8 @@ featurenames=['LoginRole_freq','LoginRole_rolelevel','LoginRole_logintime'
     ,'DailyTaskReward_freq'
     ,'DailyTaskFinish_time'
     ,'MatchInfo_time','UnoRoomPlayReviewOneLog_postpowercardovertime','UnoRoomPlayReviewOneLog_postmagiccardovertime'
-    ,'UnoRoomPlayReviewOneLog_userremainnum','UnoRoomPlayReviewOneLog_userremainmagicnum','UnoRoomPlayReviewOneLog_userremainpowernum']
+    ,'UnoRoomPlayReviewOneLog_userremainnum','UnoRoomPlayReviewOneLog_userremainmagicnum','UnoRoomPlayReviewOneLog_userremainpowernum'
+    ,'QuickMatch2V2_playtime','QuickMatch1V1_playtime']
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'manual to this script')

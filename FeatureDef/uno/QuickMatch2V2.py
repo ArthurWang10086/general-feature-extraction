@@ -1,4 +1,5 @@
 from Feature.FeatureCount import  FeatureCount
+from Feature.Feature import Feature
 import yaml
 
 # QuickMatch2V2_freq - 2V2参与频度  QuickMatch2V2
@@ -6,6 +7,12 @@ class QuickMatch2V2_freq(FeatureCount):
     def __init__(self):
         FeatureCount.__init__(self, 'QuickMatch2V2_freq', 'QuickMatch2V2')
 
+class QuickMatch2V2_playtime(Feature):
+    def __init__(self):
+        Feature.__init__(self, 'QuickMatch2V2_playtime', 'QuickMatch2V2')
+
+    def __parse__(self, item):
+        return item['raw_info']['end_time']-item['raw_info']['start_time']
 
 # QuickMatch2V2_winratio - 2V2胜率（所有场次）QuickMatch2V2 role_id == role_id1 or role_id == role_id2 win
 class QuickMatch2V2_winratio(FeatureCount):
