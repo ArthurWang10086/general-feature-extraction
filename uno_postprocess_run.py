@@ -12,7 +12,7 @@ if __name__=='__main__':
     log_feature_filename = name+date+'_H5_result.txt'
     log_featurename_filename = name+date+'_H5_featurename.txt'
     log_featurename_filename_old = name+date+'_H5_featurename_old.txt.2'
-    hive_feature_filename = name+'wangkai_uno_feature_v1.txt'
+    hive_feature_filename = name+'wangkai_uno_feature_v2.txt'
     output_filename = name+date+'_H5_allfeature.txt'
 
     log_featurenames = ['label','role_id','SerialId']+uno_process_run.featurenames
