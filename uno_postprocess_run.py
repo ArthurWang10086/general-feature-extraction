@@ -93,12 +93,12 @@ if __name__=='__main__':
 
     df = df_log.merge(df_hive,how = 'inner')
     df = df[df['UnoRoomPlayReviewOneLog_timeconsume_average']>0]
-    df_log['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df_log['UnoRoomPlayReviewOneLog_timeconsume_average']/df_log['posttimeaverage']
-    df_log['UnoRoomPlayReviewOneLog_postusetime_four_ratio'][df_log['posttimeaverage']<1]=-1
+    df['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df['UnoRoomPlayReviewOneLog_timeconsume_average']/df['posttimeaverage']
+    df['UnoRoomPlayReviewOneLog_postusetime_four_ratio'][df['posttimeaverage']<1]=-1
     # df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['posttimeaverage']
     # df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['posttimeaverage']<1]=-1
-    df_log['UnoRoomPlayReviewOneLog_unomay_four_ratio']= df_log['UnoRoomPlayReviewOneLog_unomay']/df_log['unocount']
-    df_log['UnoRoomPlayReviewOneLog_unomay_four_ratio'][df_log['unocount']<1]=-1
+    df['UnoRoomPlayReviewOneLog_unomay_four_ratio']= df['UnoRoomPlayReviewOneLog_unomay']/df['unocount']
+    df['UnoRoomPlayReviewOneLog_unomay_four_ratio'][df['unocount']<1]=-1
     names = log_featurenames+hive_featurenames[1:-1]+['UnoRoomPlayReviewOneLog_postusetime_four_ratio','UnoRoomPlayReviewOneLog_unomay_four_ratio']
     df = df[names]
     df.fillna(value=0, inplace=True)
