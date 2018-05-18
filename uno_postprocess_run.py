@@ -23,8 +23,8 @@ if __name__=='__main__':
     df_log['UnoRoomPlayReviewOneLog_postmagiccard_ratio'][df_log['UnoRoomPlayReviewOneLog_getmagiccard']+df_log['UnoRoomPlayReviewOneLog_initmagiccard']<1]=-1
     df_log['UnoRoomPlayReviewOneLog_postpowercard_ratio']=df_log['UnoRoomPlayReviewOneLog_postpowercard']/(df_log['UnoRoomPlayReviewOneLog_getpowercard']+df_log['UnoRoomPlayReviewOneLog_initpowercard'])
     df_log['UnoRoomPlayReviewOneLog_postpowercard_ratio'][df_log['UnoRoomPlayReviewOneLog_getpowercard']+df_log['UnoRoomPlayReviewOneLog_initpowercard']<1]=-1
-    df_log['UnoRoomPlayReviewOneLog_uno_ratio']=df_log['UnoRoomPlayReviewOneLog_unomay']/df_log['UnoRoomPlayReviewOneLog_unohappen']
-    df_log['UnoRoomPlayReviewOneLog_uno_ratio'][df_log['UnoRoomPlayReviewOneLog_unohappen']<1]=-1
+    #df_log['UnoRoomPlayReviewOneLog_uno_ratio']=df_log['UnoRoomPlayReviewOneLog_unomay']/df_log['UnoRoomPlayReviewOneLog_unohappen']
+    #df_log['UnoRoomPlayReviewOneLog_uno_ratio'][df_log['UnoRoomPlayReviewOneLog_unohappen']<1]=-1
     df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['UnoRoomPlayReviewOneLog_get_num']
     df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['UnoRoomPlayReviewOneLog_get_num']<1]=-1
     df_log['UnoRoomPlayReviewOneLog_postovertime_ratio']= df_log['UnoRoomPlayReviewOneLog_timeover']/df_log['UnoRoomPlayReviewOneLog_post']
@@ -52,7 +52,6 @@ if __name__=='__main__':
     df_log['QuickMatch_playtime']=df_log['QuickMatch1V1_playtime']+df_log['QuickMatch2V2_playtime']
     df_log['QuickMatch_playtime'][df_log['QuickMatch1V1_playtime']+df_log['QuickMatch2V2_playtime']<1]=-1
     add_featurenames=['UnoRoomPlayReviewOneLog_postmagiccard_ratio','UnoRoomPlayReviewOneLog_postpowercard_ratio'
-                      ,'UnoRoomPlayReviewOneLog_uno_ratio'
                       ,'UnoRoomPlayReviewOneLog_post_ratio','UnoRoomPlayReviewOneLog_postovertime_ratio'
                       ,'RewardAchievement_ratio','DailySignReward_ratio','DailyTaskReward_ratio'
                       ,'DailySignReward_timediff'
