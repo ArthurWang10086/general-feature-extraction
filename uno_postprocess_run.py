@@ -119,7 +119,7 @@ if __name__=='__main__':
 
 
     feature_dict={}
-    f = open('feature_dict.txt','r')
+    f = open(name+'feature_dict.txt','r')
     feature_dict_datas=f.read().split('\t')
     for feature_dict_data in feature_dict_datas:
         feature_dict_L = feature_dict_data.split('\t')
