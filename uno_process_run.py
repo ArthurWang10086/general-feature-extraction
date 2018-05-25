@@ -46,7 +46,8 @@ featurenames=['LoginRole_freq','LoginRole_rolelevel','LoginRole_logintime'
     ,'DailyTaskFinish_time'
     ,'MatchInfo_time','UnoRoomPlayReviewOneLog_postpowercardovertime','UnoRoomPlayReviewOneLog_postmagiccardovertime'
     ,'UnoRoomPlayReviewOneLog_userremainnum','UnoRoomPlayReviewOneLog_userremainmagicnum','UnoRoomPlayReviewOneLog_userremainpowernum'
-    ,'QuickMatch2V2_playtime','QuickMatch1V1_playtime']
+    ,'QuickMatch2V2_playtime','QuickMatch1V1_playtime','InviteLog_freq','Invite_and_get_into_room','Invite_and_start_game'
+    ,'FollowLog_freq','ShareLog_freq']
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'manual to this script')
