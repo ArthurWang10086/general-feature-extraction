@@ -51,7 +51,7 @@ if __name__ == '__main__':
                              database='default', authMechanism='PLAIN')
 
 
-    for t in range(1,71):
+    for t in range(21,71):
         date= '2018-02-19'
         sql = '''
                 Insert overwrite table la_shitu_analysis.shitu_churn
