@@ -96,7 +96,9 @@ if __name__=='__main__':
     print(df_hive.count())
     df = df_log.merge(df_hive,how = 'inner')
     print(df.count())
+    print(df['UnoRoomPlayReviewOneLog_timeconsume_average'][:5])
     df = df[df['UnoRoomPlayReviewOneLog_timeconsume_average']>0]
+    print(df.count())
     df['roomplaylogcount'][df['roomplaylogcount']<0] = df['roomplaylogcount'][df['roomplaylogcount']<0]+256
     df['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df['UnoRoomPlayReviewOneLog_timeconsume_average']/df['posttimeaverage']
     df['UnoRoomPlayReviewOneLog_postusetime_four_ratio'][df['posttimeaverage']<1]=-1
@@ -114,9 +116,8 @@ if __name__=='__main__':
     names = log_featurenames+hive_featurenames[1:-1]+['UnoRoomPlayReviewOneLog_postusetime_four_ratio','UnoRoomPlayReviewOneLog_unomay_four_ratio'
                                                       ,'UnoRoomPlayReviewOneLog_argue_four_allhappenratio','UnoRoomPlayReviewOneLog_argue_four_allsuccessratio']
     df = df[names]
-    print(df.count())
+
     df.fillna(value=0, inplace=True)
-    print(df.count())
     df.to_csv(output_filename, sep='|',index=False,header=False)
 
 
