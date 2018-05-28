@@ -90,7 +90,7 @@ if __name__ == '__main__':
                                         FROM 
                                             (
                                                 select role_id,time, get_json_object(min(u_team),'$.member') as tt 
-                                                from la_bi_pve
+                                                from ladb.la_bi_pve
                                                 where ds = date_add('%s',%d) group by role_id,time 
                                             )aa
                                         lateral view explode (split(regexp_replace(substr(aa.tt, 2, length(tt)-2),'"},', '"},,,,'), ',,,,')   
