@@ -92,15 +92,13 @@ if __name__=='__main__':
                           ,names=hive_featurenames
                           ,usecols=hive_featurenames[:-1])
     #df_hive = df_hive.fillna(value=0, inplace=True)
-    print(df_log.count())
-    print(df_hive.count())
+
     df = df_log.merge(df_hive,how = 'inner')
-    print(df.count())
-    print(df['UnoRoomPlayReviewOneLog_timeconsume_average'][:5])
     df = df[df['UnoRoomPlayReviewOneLog_timeconsume_average']>0]
-    print(df.count())
     df['roomplaylogcount'][df['roomplaylogcount']<0] = df['roomplaylogcount'][df['roomplaylogcount']<0]+256
     df['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df['UnoRoomPlayReviewOneLog_timeconsume_average']/df['posttimeaverage']
+    print(df['posttimeaverage'][:5])
+    print(df['UnoRoomPlayReviewOneLog_timeconsume_average'][:5])
     df['UnoRoomPlayReviewOneLog_postusetime_four_ratio'][df['posttimeaverage']<1]=-1
     # df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['posttimeaverage']
     # df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['posttimeaverage']<1]=-1
