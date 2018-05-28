@@ -70,13 +70,13 @@ if __name__=='__main__':
         if x in log_featurenames:
             log_featurenames.remove(x)
     log_featurenames=log_featurenames+add_featurenames
-    print(log_featurenames)
+    #print(log_featurenames)
     df_log=df_log[log_featurenames]
     df_log.to_csv(log_feature_filename+'.2', sep='|',index=False,header=False)
 
     with open(log_featurename_filename_old,'w') as f2:
         names = log_featurenames
-        print(names)
+        #print(names)
         tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
         f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx','1','-1','0']) for x in tmp]))
@@ -92,8 +92,10 @@ if __name__=='__main__':
                           ,names=hive_featurenames
                           ,usecols=hive_featurenames[:-1])
     #df_hive = df_hive.fillna(value=0, inplace=True)
-
+    print(df_log.count())
+    print(df_hive.count())
     df = df_log.merge(df_hive,how = 'inner')
+    print(df.count())
     df = df[df['UnoRoomPlayReviewOneLog_timeconsume_average']>0]
     df['roomplaylogcount'][df['roomplaylogcount']<0] = df['roomplaylogcount'][df['roomplaylogcount']<0]+256
     df['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df['UnoRoomPlayReviewOneLog_timeconsume_average']/df['posttimeaverage']
@@ -123,10 +125,10 @@ if __name__=='__main__':
         feature_dict_L = feature_dict_data.split('\t')
         feature_dict[feature_dict_L[0]]='\t'.join([feature_dict_L[1],feature_dict_L[2],feature_dict_L[3],feature_dict_L[4]])
 
-    print(feature_dict)
+    #print(feature_dict)
 
     with open(log_featurename_filename,'w') as f2:
-        print(names)
+        #print(names)
         tmp = zip(names,range(0,len(names)))
         f2.write('序号\t名字\t描述\t重要级\tNone值\tDefault建议值\n')
         f2.write('\n'.join(['\t'.join([str(x[1]),x[0],'详见xx' if str(x[0]) not in feature_dict else feature_dict[str(x[0])],'1','-1','0']) for x in tmp]))
