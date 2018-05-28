@@ -114,7 +114,9 @@ if __name__=='__main__':
     names = log_featurenames+hive_featurenames[1:-1]+['UnoRoomPlayReviewOneLog_postusetime_four_ratio','UnoRoomPlayReviewOneLog_unomay_four_ratio'
                                                       ,'UnoRoomPlayReviewOneLog_argue_four_allhappenratio','UnoRoomPlayReviewOneLog_argue_four_allsuccessratio']
     df = df[names]
+    print(df.count())
     df.fillna(value=0, inplace=True)
+    print(df.count())
     df.to_csv(output_filename, sep='|',index=False,header=False)
 
 
