@@ -13,7 +13,7 @@ class UnoRoomPlayReviewOneLog_init(Feature):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
-            return len(json.loads(item['raw_info']['InfoStr'])['CardList'])
+            return len(json.loads(item['raw_info']['Info'])['CardList'])
         else:
             return None
 
@@ -44,7 +44,7 @@ class UnoRoomPlayReviewOneLog_get_num(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return len(json.loads(item['raw_info']['InfoStr'])['CardsList'])
+            return len(json.loads(item['raw_info']['Info'])['CardsList'])
         else:
             return 0
 
@@ -54,7 +54,7 @@ class UnoRoomPlayReviewOneLog_timeover(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return 1 if int(json.loads(item['raw_info']['InfoStr'])['UseTime']) >= 10 else 0
+            return 1 if int(json.loads(item['raw_info']['Info'])['UseTime']) >= 10 else 0
         else:
             return None
 
@@ -68,7 +68,7 @@ class UnoRoomPlayReviewOneLog_timeconsume_average(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return json.loads(item['raw_info']['InfoStr'])['UseTime']
+            return json.loads(item['raw_info']['Info'])['UseTime']
         else:
             return None
 
@@ -100,7 +100,7 @@ class UnoRoomPlayReviewOneLog_postmagiccardovertime(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            if str(json.loads(item['raw_info']['InfoStr'])['CardType']) in ['1', '2'] and int(json.loads(item['raw_info']['InfoStr'])['UseTime']) >= 10:
+            if str(json.loads(item['raw_info']['Info'])['CardType']) in ['1', '2'] and int(json.loads(item['raw_info']['Info'])['UseTime']) >= 10:
                 return 1
         return 0
 
@@ -111,7 +111,7 @@ class UnoRoomPlayReviewOneLog_postpowercardovertime(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            if str(json.loads(item['raw_info']['InfoStr'])['CardType'])[-2:] in ['01', '02', '03', '04'] and int(json.loads(item['raw_info']['InfoStr'])['UseTime']) >= 10:
+            if str(json.loads(item['raw_info']['Info'])['CardType'])[-2:] in ['01', '02', '03', '04'] and int(json.loads(item['raw_info']['Info'])['UseTime']) >= 10:
                 return 1
         return 0
 
@@ -123,7 +123,7 @@ class UnoRoomPlayReviewOneLog_postmagiccard(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            if str(json.loads(item['raw_info']['InfoStr'])['CardType']) in ['1', '2']:
+            if str(json.loads(item['raw_info']['Info'])['CardType']) in ['1', '2']:
                 return 1
         return 0
 
@@ -134,7 +134,7 @@ class UnoRoomPlayReviewOneLog_postpowercard(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            if str(json.loads(item['raw_info']['InfoStr'])['CardType'])[-2:] in ['01', '02', '03', '04']:
+            if str(json.loads(item['raw_info']['Info'])['CardType'])[-2:] in ['01', '02', '03', '04']:
                 return 1
         return 0
 
@@ -145,7 +145,7 @@ class UnoRoomPlayReviewOneLog_initmagiccard(Feature):
     def __parse__(self, item):
         count = 0
         if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
-            D = json.loads(item['raw_info']['InfoStr'])['CardList']
+            D = json.loads(item['raw_info']['Info'])['CardList']
             for card in D:
                 if str(card) in ('1', '2'):
                     count = count + 1
@@ -160,7 +160,7 @@ class UnoRoomPlayReviewOneLog_getmagiccard(FeatureCount):
     def __parse__(self, item):
         count = 0
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            D = json.loads(item['raw_info']['InfoStr'])['CardsList']
+            D = json.loads(item['raw_info']['Info'])['CardsList']
             for (index, card) in D.items():
                 if str(card) in ('1', '2'):
                     count = count + 1
@@ -173,7 +173,7 @@ class UnoRoomPlayReviewOneLog_initpowercard(Feature):
     def __parse__(self, item):
         count = 0
         if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
-            D = json.loads(item['raw_info']['InfoStr'])['CardList']
+            D = json.loads(item['raw_info']['Info'])['CardList']
             for card in D:
                 if str(card)[-2:] in ('01', '02', '03', '04'):
                     count = count + 1
@@ -188,7 +188,7 @@ class UnoRoomPlayReviewOneLog_getpowercard(FeatureCount):
     def __parse__(self, item):
         count = 0
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            D = json.loads(item['raw_info']['InfoStr'])['CardsList']
+            D = json.loads(item['raw_info']['Info'])['CardsList']
             for (index, card) in D.items():
                 if str(card)[-2:] in ('01', '02', '03', '04'):
                     count = count + 1
@@ -212,7 +212,7 @@ class UnoRoomPlayReviewOneLog_arguesuccess(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Result'] else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Result'] else 0
         else:
             return 0
 
@@ -223,7 +223,7 @@ class UnoRoomPlayReviewOneLog_arguehappen(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'SendChallengeWildFourResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['IsChallenge'] else 0
+            return 1 if json.loads(item['raw_info']['Info'])['IsChallenge'] else 0
         else:
             return 0
 
@@ -234,7 +234,7 @@ class UnoRoomPlayReviewOneLog_unomay(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['UnoDeclared'] else 0
+            return 1 if json.loads(item['raw_info']['Info'])['UnoDeclared'] else 0
         else:
             return 0
 
@@ -265,7 +265,7 @@ class UnoRoomPlayReviewOneLog_catchcause1(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 1 else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Cause'] == 1 else 0
         else:
             return 0
 
@@ -276,7 +276,7 @@ class UnoRoomPlayReviewOneLog_catchcause2(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 2 else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Cause'] == 2 else 0
         else:
             return 0
 
@@ -287,7 +287,7 @@ class UnoRoomPlayReviewOneLog_catchcause3(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 3 else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Cause'] == 3 else 0
         else:
             return 0
 class UnoRoomPlayReviewOneLog_catchcause4(FeatureCount):
@@ -296,7 +296,7 @@ class UnoRoomPlayReviewOneLog_catchcause4(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 4 else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Cause'] == 4 else 0
         else:
             return 0
 
@@ -306,7 +306,7 @@ class UnoRoomPlayReviewOneLog_catchcause4_4(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 4 and len(json.loads(item['raw_info']['InfoStr'])['CardsList'])<5 else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Cause'] == 4 and len(json.loads(item['raw_info']['Info'])['CardsList'])<5 else 0
         else:
             return 0
 
@@ -316,7 +316,7 @@ class UnoRoomPlayReviewOneLog_catchcause4_6(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 4 and len(json.loads(item['raw_info']['InfoStr'])['CardsList'])>5 else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Cause'] == 4 and len(json.loads(item['raw_info']['Info'])['CardsList'])>5 else 0
         else:
             return 0
 
@@ -327,7 +327,7 @@ class UnoRoomPlayReviewOneLog_catchcause5(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 5 else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Cause'] == 5 else 0
         else:
             return 0
 
@@ -338,7 +338,7 @@ class UnoRoomPlayReviewOneLog_catchcause6(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 1 if json.loads(item['raw_info']['InfoStr'])['Cause'] == 6 else 0
+            return 1 if json.loads(item['raw_info']['Info'])['Cause'] == 6 else 0
         else:
             return 0
 
@@ -349,7 +349,7 @@ class UnoRoomPlayReviewOneLog_forcerule(Feature):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return 0 if json.loads(item['raw_info']['InfoStr'])['IsForcePlay'] == 'false' else 1
+            return 0 if json.loads(item['raw_info']['Info'])['IsForcePlay'] == 'false' else 1
         else:
             return None
 
@@ -360,7 +360,7 @@ class UnoRoomPlayReviewOneLog_remainnum(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return json.loads(item['raw_info']['InfoStr'])['RemainNum']
+            return json.loads(item['raw_info']['Info'])['RemainNum']
         else:
             return None
 

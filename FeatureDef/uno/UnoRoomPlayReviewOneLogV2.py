@@ -9,11 +9,11 @@ class UnoRoomPlayReviewOneLog_userremainnum(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
-            return ['StartUnoPlayOne', json.loads(item['raw_info']['InfoStr'])['CardList']]
+            return ['StartUnoPlayOne', json.loads(item['raw_info']['Info'])['CardList']]
         elif item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return ['PlayUnoCardResult', json.loads(item['raw_info']['InfoStr'])['CardType']]
+            return ['PlayUnoCardResult', json.loads(item['raw_info']['Info'])['CardType']]
         elif item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return ['CatchUnoCardResult', json.loads(item['raw_info']['InfoStr'])['CardsList']]
+            return ['CatchUnoCardResult', json.loads(item['raw_info']['Info'])['CardsList']]
 
     def __process__(self):
         L = self.L
@@ -45,11 +45,11 @@ class UnoRoomPlayReviewOneLog_userremainpowernum(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
-            return ['StartUnoPlayOne', json.loads(item['raw_info']['InfoStr'])['CardList']]
+            return ['StartUnoPlayOne', json.loads(item['raw_info']['Info'])['CardList']]
         elif item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return ['PlayUnoCardResult', json.loads(item['raw_info']['InfoStr'])['CardType']]
+            return ['PlayUnoCardResult', json.loads(item['raw_info']['Info'])['CardType']]
         elif item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return ['CatchUnoCardResult', json.loads(item['raw_info']['InfoStr'])['CardsList']]
+            return ['CatchUnoCardResult', json.loads(item['raw_info']['Info'])['CardsList']]
 
     def __process__(self):
         L = self.L
@@ -81,11 +81,11 @@ class UnoRoomPlayReviewOneLog_userremainmagicnum(FeatureCount):
 
     def __parse__(self, item):
         if item['raw_info']['TypeStr'] == 'StartUnoPlayOne':
-            return ['StartUnoPlayOne', json.loads(item['raw_info']['InfoStr'])['CardList']]
+            return ['StartUnoPlayOne', json.loads(item['raw_info']['Info'])['CardList']]
         elif item['raw_info']['TypeStr'] == 'PlayUnoCardResult':
-            return ['PlayUnoCardResult', json.loads(item['raw_info']['InfoStr'])['CardType']]
+            return ['PlayUnoCardResult', json.loads(item['raw_info']['Info'])['CardType']]
         elif item['raw_info']['TypeStr'] == 'CatchUnoCardResult':
-            return ['CatchUnoCardResult', json.loads(item['raw_info']['InfoStr'])['CardsList']]
+            return ['CatchUnoCardResult', json.loads(item['raw_info']['Info'])['CardsList']]
 
     def __process__(self):
         L = self.L
