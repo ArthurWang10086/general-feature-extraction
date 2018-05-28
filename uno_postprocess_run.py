@@ -96,9 +96,9 @@ if __name__=='__main__':
     df = df_log.merge(df_hive,how = 'inner')
     df = df[df['UnoRoomPlayReviewOneLog_timeconsume_average']>0]
     df['roomplaylogcount'][df['roomplaylogcount']<0] = df['roomplaylogcount'][df['roomplaylogcount']<0]+256
-    df['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df['UnoRoomPlayReviewOneLog_timeconsume_average']/df['posttimeaverage']
     print(df['posttimeaverage'][:5])
     print(df['UnoRoomPlayReviewOneLog_timeconsume_average'][:5])
+    df['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df['UnoRoomPlayReviewOneLog_timeconsume_average']/df['posttimeaverage']
     df['UnoRoomPlayReviewOneLog_postusetime_four_ratio'][df['posttimeaverage']<1]=-1
     # df_log['UnoRoomPlayReviewOneLog_post_ratio']= df_log['UnoRoomPlayReviewOneLog_post']/df_log['posttimeaverage']
     # df_log['UnoRoomPlayReviewOneLog_post_ratio'][df_log['posttimeaverage']<1]=-1
