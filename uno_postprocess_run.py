@@ -94,6 +94,7 @@ if __name__=='__main__':
     #df_hive = df_hive.fillna(value=0, inplace=True)
 
     df = df_log.merge(df_hive,how = 'inner')
+    df = df[df['getusetimemax']>0]
     df = df[df['UnoRoomPlayReviewOneLog_timeconsume_average']>0]
     df['roomplaylogcount'][df['roomplaylogcount']<0] = df['roomplaylogcount'][df['roomplaylogcount']<0]+256
     df['posttimeaverage'] = df['posttimeaverage'].astype(float)
