@@ -54,13 +54,53 @@ if __name__ == '__main__':
     for t in range(0,1):
         date= '2018-05-'+str(15+t)
         sql = '''select * from la_shitu_analysis.shitu_pve_pair '''
-
         result = hive_client.query(sql)
-
-
         f=open('shitu_pve_pair.txt','a+')
         f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
         f.write('\n')
         f.close()
+
+        sql = '''select * from la_shitu_analysis.shitu_trade_pair_reversed '''
+        result = hive_client.query(sql)
+        f=open('shitu_trade_pair_reversed.txt','a+')
+        f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
+        f.write('\n')
+        f.close()
+
+        sql = '''select * from la_shitu_analysis.shitu_trade_pair '''
+        result = hive_client.query(sql)
+        f=open('shitu_trade_pair.txt','a+')
+        f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
+        f.write('\n')
+        f.close()
+
+        sql = '''select * from la_shitu_analysis.shitu_chat_pair '''
+        result = hive_client.query(sql)
+        f=open('shitu_chat_pair.txt','a+')
+        f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
+        f.write('\n')
+        f.close()
+
+        sql = '''select * from la_shitu_analysis.shitu_chat_pair_reversed '''
+        result = hive_client.query(sql)
+        f=open('shitu_chat_pair_reversed.txt','a+')
+        f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
+        f.write('\n')
+        f.close()
+
+        sql = '''select * from la_shitu_analysis.shitu_churn '''
+        result = hive_client.query(sql)
+        f=open('shitu_churn.txt','a+')
+        f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
+        f.write('\n')
+        f.close()
+
+        sql = '''select * from la_shitu_analysis.shitu_seq '''
+        result = hive_client.query(sql)
+        f=open('shitu_seq.txt','a+')
+        f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
+        f.write('\n')
+        f.close()
+
 
     hive_client.close()
