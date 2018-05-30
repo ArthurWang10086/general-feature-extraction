@@ -92,11 +92,13 @@ if __name__=='__main__':
                           ,names=hive_featurenames
                           ,usecols=hive_featurenames[:-1])
     #df_hive = df_hive.fillna(value=0, inplace=True)
-
+    print('df_log',df_log['LoginRole_freq'].count())
     df = df_log.merge(df_hive,how = 'inner')
+    print('df:',df['LoginRole_freq'].count())
     df = df[df['getusetimemax']>0]
     df = df[df['LoginRole_freq']>0]
     df = df[df['UnoRoomPlayReviewOneLog_timeconsume_average']>0]
+    print('df:',df['LoginRole_freq'].count())
     df['roomplaylogcount'][df['roomplaylogcount']<0] = df['roomplaylogcount'][df['roomplaylogcount']<0]+256
     df['posttimeaverage'] = df['posttimeaverage'].astype(float)
     df['UnoRoomPlayReviewOneLog_postusetime_four_ratio']= df['UnoRoomPlayReviewOneLog_timeconsume_average']/df['posttimeaverage']
