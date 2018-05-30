@@ -62,7 +62,7 @@ if __name__ == '__main__':
                   on a.role_id=b.role_id
                   left outer join
                     la_shitu_analysis.shitu_churn bb 
-                  on a.role_id=bb.role_id
+                  on a.d_role_id=bb.role_id
                   left outer join
                     la_shitu_analysis.shitu_chat_pair c
                   on a.role_id=c.role_id and a.d_role_id=c.d_role_id
