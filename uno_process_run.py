@@ -7,7 +7,7 @@ from Utils.GetAllFiles import GetAllFiles
 from Utils.GlobalVariable import GlobalVariable
 from Utils.DropDuplicate import DropDuplicate
 from Utils.not_None import not_None
-from TimeSplit.OneGameSplit import OneGameSplit
+from TimeSplit.OneGameSplit import OneGameSplit,OneGameSplitById
 from PlayerSplit.H5PlayerSplit import H5PlayerSplit
 from PlayerSplit.AppPlayerSplit import AppPlayerSplit
 from FeatureDef.uno import *
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     filelist = GetAllFiles(args.dir)
     #filelist = ['1.json']
     PlayerSplit = H5PlayerSplit()
-    TimeSplit = OneGameSplit()
+    TimeSplit = OneGameSplitById()
     dirIndex = list(filter(not_None,str(args.dir).split('/')))[-1]
     resourcename = PlayerSplit.name
     with open('data/'+dirIndex+'_'+resourcename+'_featurename_old.txt','w') as f2:
