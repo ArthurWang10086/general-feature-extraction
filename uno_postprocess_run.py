@@ -17,6 +17,7 @@ if __name__=='__main__':
 
     log_featurenames = ['label','role_id','SerialId']+uno_process_run.featurenames
     df_log=pd.read_table(log_feature_filename,sep='|',names=log_featurenames)
+    print('df_log',df_log['LoginRole_freq'].count())
     df_log=df_log[df_log['MatchInfo_freq']>0]
     df_log=df_log[df_log['RoomModeCreate_freq']<1]
     df_log['UnoRoomPlayReviewOneLog_postmagiccard_ratio']=df_log['UnoRoomPlayReviewOneLog_postmagiccard']/(df_log['UnoRoomPlayReviewOneLog_getmagiccard']+df_log['UnoRoomPlayReviewOneLog_initmagiccard'])
