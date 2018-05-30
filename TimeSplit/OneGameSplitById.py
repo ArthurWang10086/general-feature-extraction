@@ -1,4 +1,4 @@
-class OneGameSplit(object):
+class OneGameSplitById(object):
 
     def run(self,items):
         endtime = '2020-01-01 00:00:00'
