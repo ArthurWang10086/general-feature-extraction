@@ -7,7 +7,8 @@ from Utils.GetAllFiles import GetAllFiles
 from Utils.GlobalVariable import GlobalVariable
 from Utils.DropDuplicate import DropDuplicate
 from Utils.not_None import not_None
-from TimeSplit.OneGameSplit import OneGameSplit,OneGameSplitById
+from TimeSplit.OneGameSplit import OneGameSplit
+from TimeSplit.OneGameSplitById import OneGameSplitById
 from PlayerSplit.H5PlayerSplit import H5PlayerSplit
 from PlayerSplit.AppPlayerSplit import AppPlayerSplit
 from FeatureDef.uno import *
