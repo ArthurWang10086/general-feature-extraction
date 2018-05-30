@@ -5,9 +5,10 @@ class OneGameSplitById(object):
         id = 0
         for item in items:
             if item['log_id'] == 'UnoRoomPlayReviewOneLog':
+                serialid = int(item['raw_info']['SerialId'])
                 if id == 0:
-                    id = item['raw_info']['SerialId']
-                if item['raw_info']['SerialId']>0 and item['raw_info']['SerialId'] != id:
+                    id = serialid
+                if serialid>0 and serialid != id:
                     endtime = item['timestamp']
                     break
 
