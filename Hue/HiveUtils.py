@@ -55,11 +55,14 @@ if __name__ == '__main__':
         date= '2018-05-'+str(15+t)
         sql = ''' select 
                     a.server,a.role_id,a.d_role_id,a.seq
-                    ,b.churndate,c.chatinfo,d.chatinfo,e.tradeinfo,f.tradeinfo,g.pveinfo
+                    ,b.churndate,bb.churndate,c.chatinfo,d.chatinfo,e.tradeinfo,f.tradeinfo,g.pveinfo
                   from la_shitu_analysis.shitu_seq a
                   left outer join
                     la_shitu_analysis.shitu_churn b 
                   on a.role_id=b.role_id
+                  left outer join
+                    la_shitu_analysis.shitu_churn bb 
+                  on a.role_id=bb.role_id
                   left outer join
                     la_shitu_analysis.shitu_chat_pair c
                   on a.role_id=c.role_id and a.d_role_id=c.d_role_id
@@ -82,3 +85,44 @@ if __name__ == '__main__':
         f.write('\n')
         f.close()
     hive_client.close()
+
+
+
+
+f = open('shitu_all.txt','r')
+data=f.read().split('\n')
+f.close()
+new_data=[]
+for line in data:
+    L = line.split('\t')
+    Flag = False
+    shoutuTime = ''
+    chushiTime =''
+    churnTime = ''
+    extra =[]
+    for x in L[3].split(','):
+        if x.split(':')[1]=='ShouTu':
+            shoutuTime = x.split(':')[0]
+        elif x.split(':')[0]=='ChuShi':
+            chushiTime = x.split(':')[0]
+
+    for x in L[4].split(','):
+        if x>shoutuTime:
+            churnTime=x
+
+
+    if chushiTime==shoutuTime and len(chushiTime)>0:
+        extra.append(-1)
+    elif chushiTime>shoutuTime and len(chushiTime) >0 and len(shoutuTime)>0:
+        extra.append(1)
+    elif len(shoutuTime)>0:
+        extra.append(0)
+    else:
+        break
+
+    if churnTime<chushiTime and len(churnTime)>0 and len(chushiTime)>0:
+        extra.append(1)
+    else:
+        extra.append(0)
+
+
