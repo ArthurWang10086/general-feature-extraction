@@ -51,18 +51,32 @@ if __name__ == '__main__':
                              database='default', authMechanism='PLAIN')
 
     d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
-    for t in range(0,1):
+    for t in range(0,60):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
-                    select * from qn_guanning.guanninggame where ds<='2018-05-29'
+                    Insert overwrite table qn_guanning.guanninggamewithfeature
+                    partition (ds='%s')
                     
-                  '''
-        result = hive_client.query(sql)
+                    select min(time),server,iid
+                    ,concat_ws(';',collect_set(if(iswin>0,features,NULL))) as win_features
+                    ,concat_ws(';',collect_set(if(iswin<0,features,NULL))) as lose_features
+                    from (
+                    select a.time,a.server,a.iid,a.id,if(b.features is null,'0,0,0,0,0,0,0,0,0,0,0,0,0,0',b.features) as features,iswin
+                    from
+                    (
+                    SELECT time,server,iid,id,iswin
+                    from qndb.h_guanning_result
+                    where ds='%s'
+                    )a
+                    
+                    left outer join 
+                    (select role_id,features from qn_guanning.guanningpersonal where ds='%s')b
+                    on a.id=b.role_id
+                    )c
+                    group by server,iid
+                  '''%(date,date,date)
+        result = hive_client.action(sql)
         print t
-        f=open('guanninggame.txt','a+')
-        f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
-        f.write('\n')
-        f.close()
     hive_client.close()
 
 
@@ -89,16 +103,16 @@ if __name__ == '__main__':
 #                 Insert overwrite table qn_guanning.guanningpersonal
 #                     partition (ds='%s')
 #                     select server,id,
-#                     concat_ws(',',cast(avg(iswin) as string),cast(avg(xiulian) as string)
-#                     ,cast(avg(total_score) as string),cast(avg(help_num) as string)
-#                     ,cast(avg(kill_score) as string),cast(avg(flag_score) as string)
-#                     ,cast(avg(xiuwei) as string),cast(avg(equip_score) as string)
-#                     ,cast(avg(team_score) as string),cast(avg(killed_score) as string)
-#                     ,cast(avg(score_count) as string),cast(avg(grade) as string)
-#                     ,cast(avg(class) as string),cast(count(*) as string))
+#                         concat_ws(',',cast(avg(round(iswin,2)) as string),cast(avg(round(xiulian,2)) as string)
+#                         ,cast(avg(round(total_score,2)) as string),cast(avg(round(help_num,2)) as string)
+#                         ,cast(avg(round(kill_score,2)) as string),cast(avg(round(flag_score,2)) as string)
+#                         ,cast(avg(round(xiuwei,2)) as string),cast(avg(round(equip_score,2)) as string)
+#                         ,cast(avg(round(team_score,2)) as string),cast(avg(round(killed_score,2)) as string)
+#                         ,cast(avg(round(score_count,2)) as string),cast(avg(round(grade,2)) as string)
+#                         ,cast(avg(round(class,2)) as string),cast(round(count(*),2) as string))
 #                     from  qndb.h_guanning_result where ds>='%s' and ds<='%s'
 #                     group by server,id
-#               '''%(date,(d+datetime.timedelta(6+t)).strftime('%Y-%m-%d'),(d+datetime.timedelta(7+t)).strftime('%Y-%m-%d'))
+#               '''%((d+datetime.timedelta(7+t)).strftime('%Y-%m-%d'),date,(d+datetime.timedelta(6+t)).strftime('%Y-%m-%d'))
 #     result = hive_client.action(sql)
 #     print t
 
