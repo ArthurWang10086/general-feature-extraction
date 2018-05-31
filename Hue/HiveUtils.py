@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
     d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
     for t in range(0,60):
-        date = d+datetime.timedelta(t).strftime('%Y-%m-%d')
+        date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
                     Insert overwrite table qn_guanning.guanninggame
                     partition (ds='%s')
@@ -74,14 +74,15 @@ if __name__ == '__main__':
 
 # d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
 # for t in range(0,60):
-#     date = d+datetime.timedelta(t).strftime('%Y-%m-%d')
+#     date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
 #     sql = '''
-#                 Insert overwrite table qn_guanning.guanninggame
-#                 partition (ds='2018-05-30')
-#                 SELECT min(time),server,iid,concat_ws(',',collect_set(concat_ws(':',cast(id as STRING),cast(iswin as String))))
-#                 from qndb.h_guanning_result
-#                 group by server,iid
-#               '''%(date,date)
+#                     Insert overwrite table qn_guanning.guanninggame
+#                     partition (ds='%s')
+#                     SELECT min(time),server,iid,concat_ws(',',collect_set(concat_ws(':',cast(id as STRING),cast(iswin as String))))
+#                     from qndb.h_guanning_result
+#                     where ds='%s'
+#                     group by server,iid
+#                   '''%(date,date)
 #     result = hive_client.action(sql)
 
 # d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
