@@ -51,21 +51,18 @@ if __name__ == '__main__':
                              database='default', authMechanism='PLAIN')
 
     d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
-    for t in range(0,60):
+    for t in range(0,1):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
-                    Insert overwrite table qn_guanning.guanninggame
-                    partition (ds='%s')
-                    SELECT min(time),server,iid,concat_ws(',',collect_set(concat_ws(':',cast(id as STRING),cast(iswin as String))))
-                    from qndb.h_guanning_result
-                    where ds='%s'
-                    group by server,iid
-                  '''%(date,date)
-        result = hive_client.action(sql)
-        # f=open('shitu_all.txt','a+')
-        # f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
-        # f.write('\n')
-        # f.close()
+                    select * from qn_guanning.guanninggame where ds<='2018-05-29'
+                    
+                  '''
+        result = hive_client.query(sql)
+        print t
+        f=open('guanninggame.txt','a+')
+        f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
+        f.write('\n')
+        f.close()
     hive_client.close()
 
 
@@ -104,3 +101,17 @@ if __name__ == '__main__':
 #               '''%(date,(d+datetime.timedelta(6+t)).strftime('%Y-%m-%d'),(d+datetime.timedelta(7+t)).strftime('%Y-%m-%d'))
 #     result = hive_client.action(sql)
 #     print t
+
+# d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
+# for t in range(0,1):
+#     date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
+#     sql = '''
+#                     select * from qn_guanning.guanninggame where ds<='2018-05-29'
+#
+#                   '''
+#     result = hive_client.query(sql)
+#     print t
+#     f=open('guanninggame.txt','a+')
+#     f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
+#     f.write('\n')
+#     f.close()
