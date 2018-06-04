@@ -65,7 +65,7 @@ if __name__ == '__main__':
                                 ,cast(round(avg(xiuwei),2) as string),cast(round(avg(equip_score),2) as string)
                                 ,cast(round(avg(team_score),2) as string),cast(round(avg(killed_score),2) as string)
                                 ,cast(round(avg(score_count),2) as string),cast(round(avg(grade),2) as string)
-                                ,cast(round(avg(class),2) as string),cast(round(count(*),2) as string)) as seq
+                                ,cast(round(min(class),2) as string),cast(round(count(*),2) as string)) as seq
             from qndb.h_guanning_result where ds>='%s' and ds<='%s' group by id)a
     left outer join
     (select
