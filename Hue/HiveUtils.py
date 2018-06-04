@@ -72,10 +72,10 @@ where ds='%s'
 )a
 
 left outer join 
-(select role_id,iid,features from qn_guanning.guanningpersonal where ds='%s')b
+(select role_id,iid,features_one from qn_guanning.guanningpersonal where ds='%s')b
 on a.id=b.role_id and a.iid=b.iid
 )c
-group by server,iid;
+group by server,iid
                   '''%(date,date,date)
         result = hive_client.action(sql)
         print t
