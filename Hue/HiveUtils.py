@@ -76,7 +76,7 @@ left outer join
 on a.id=b.role_id and a.iid=b.iid
 )c
 group by server,iid;
-                  '''%(date,date)
+                  '''%(date,date,date)
         result = hive_client.action(sql)
         print t
     hive_client.close()
