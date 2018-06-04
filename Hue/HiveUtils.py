@@ -92,7 +92,7 @@ on a.id=c.role_id and a.iid=c.scene_id
 
                       '''%(date,date,date,date)
         result = hive_client.action(sql)
-        # print t
+        print t
         # f=open('guanninggamewithfeature.txt','a+')
         # f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
         # f.write('\n')
