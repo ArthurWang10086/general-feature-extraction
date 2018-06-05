@@ -51,7 +51,7 @@ if __name__ == '__main__':
                              database='default', authMechanism='PLAIN')
 
     d = datetime.datetime.strptime('2018-03-23', '%Y-%m-%d')
-    for t in range(0,60):
+    for t in range(0,62):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
                     Insert overwrite table qn_guanning.guanningpersonal
