@@ -139,7 +139,7 @@ if __name__ == '__main__':
 #
 #
     d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
-    for t in range(0,8):
+    for t in range(0,60):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
                     Insert overwrite table qn_guanning.guanninggamewithfeature
