@@ -50,13 +50,13 @@ if __name__ == '__main__':
 
                              database='default', authMechanism='PLAIN')
 
-    d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
+    d = datetime.datetime.strptime('2018-03-23', '%Y-%m-%d')
     for t in range(0,60):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
                     Insert overwrite table qn_guanning.guanningpersonal
     partition (ds='%s')
-    select a.server,a.id,concat_ws(',',a.seq,if(b.role_id is null,'0,0,0,0,0,0,0,0,0,0,0,0',b.seq)
+    select a.server,a.id,concat_ws(',',a.seq,if(b.role_id is null,'0,0,0,0,0,0,0,0,0,0',b.seq)
     ,if(c.role_id is null,'0,0,0,0,0,0,0,0,0,0,0,0,0',c.seq))
     from  (select min(server) as server,id,
                 concat_ws(',',cast(round(avg(iswin),2) as string),cast(round(avg(xiulian),2) as string)
@@ -70,8 +70,7 @@ if __name__ == '__main__':
     left outer join
     (select
             role_id,
-                concat_ws(',',cast(round(max(maxhp),2) as string),cast(round(max(patt),2) as string)
-                                ,cast(round(max(matt),2) as string),cast(round(max(pdef),2) as string)
+                concat_ws(',',cast(round(max(maxhp),2) as string),cast(round(max(pdef),2) as string)
                                 ,cast(round(max(mdef),2) as string),cast(round(max(pmiss),2) as string)
                                 ,cast(round(max(mmiss),2) as string),cast(round(max(phit),2) as string)
                                 ,cast(round(max(mhit),2) as string),cast(round(max(pfatal),2) as string)
@@ -100,7 +99,7 @@ if __name__ == '__main__':
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
                           Insert overwrite table qn_guanning.guanningpersonal_one partition (ds='%s')
-    select a.server,a.id,a.iid,concat_ws(',',a.seq,if(b.role_id is null,concat(repeat('0,',11),'0'),b.seq)
+    select a.server,a.id,a.iid,concat_ws(',',a.seq,if(b.role_id is null,concat(repeat('0,',9),'0'),b.seq)
     ,if(c.role_id is null,concat(repeat('0,',12),'0'),c.seq))
     from  (select min(server) as server,id,iid,
                                  concat_ws(',',cast(round(avg(xiulian),2) as string)
@@ -114,8 +113,7 @@ if __name__ == '__main__':
     left outer join
     (select
     role_id,scene_id,
-    concat_ws(',',cast(round(max(maxhp),2) as string),cast(round(max(patt),2) as string)
-    ,cast(round(max(matt),2) as string),cast(round(max(pdef),2) as string)
+    concat_ws(',',cast(round(max(maxhp),2) as string),cast(round(max(pdef),2) as string)
     ,cast(round(max(mdef),2) as string),cast(round(max(pmiss),2) as string)
     ,cast(round(max(mmiss),2) as string),cast(round(max(phit),2) as string)
     ,cast(round(max(mhit),2) as string),cast(round(max(pfatal),2) as string)
@@ -138,10 +136,10 @@ if __name__ == '__main__':
                           '''%(date,date,date,date)
         result = hive_client.action(sql)
         print t
-
-
+#
+#
     d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
-    for t in range(0,60):
+    for t in range(0,8):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
                     Insert overwrite table qn_guanning.guanninggamewithfeature
@@ -151,7 +149,7 @@ if __name__ == '__main__':
                     ,concat_ws(';',collect_set(if(iswin>0,features,NULL))) as win_features
                     ,concat_ws(';',collect_set(if(iswin<0,features,NULL))) as lose_features
                     from (
-                    select a.time,a.server,a.iid,a.id,if(b.features is null,'0,0,0,0,0,0,0,0,0,0,0,0,0,0',b.features) as features,iswin
+                    select a.time,a.server,a.iid,a.id,if(b.features is null,concat(repeat('0,',36),'0'),b.features) as features,iswin
                     from
                     (
                     SELECT time,server,iid,id,iswin
@@ -167,9 +165,9 @@ if __name__ == '__main__':
                   '''%(date,date,date)
         result = hive_client.action(sql)
         print t
-
-
-
+#
+#
+#
 
     d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
     for t in range(0,60):
@@ -183,7 +181,7 @@ select min(time),server,iid
 ,concat_ws(';',collect_set(if(iswin<0,features,NULL))) as lose_features
 from (
 select a.time,a.server,a.iid,a.id,if(b.features is null
-,concat(repeat('0,',37),'0')
+,concat(repeat('0,',35),'0')
 ,b.features) as features,iswin
 from
 (
@@ -192,7 +190,7 @@ from qndb.h_guanning_result
 where ds='%s'
 )a
 
-left outer join 
+left outer join
 (select role_id,iid,features from qn_guanning.guanningpersonal_one where ds='%s')b
 on a.id=b.role_id and a.iid=b.iid
 )c
@@ -234,7 +232,7 @@ group by server,iid
 #                             ,cast(round(avg(xiuwei),2) as string),cast(round(avg(equip_score),2) as string)
 #                             ,cast(round(avg(team_score),2) as string),cast(round(avg(killed_score),2) as string)
 #                             ,cast(round(avg(score_count),2) as string),cast(round(avg(grade),2) as string)
-#                             ,cast(round(avg(class),2) as string),cast(round(count(*),2) as string)) as seq
+#                             ,cast(round(min(class),2) as string),cast(round(count(*),2) as string)) as seq
 #         from qndb.h_guanning_result where ds>='%s' and ds<='%s' group by id)a
 # left outer join
 # (select
