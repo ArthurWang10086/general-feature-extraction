@@ -201,6 +201,8 @@ if __name__ == '__main__':
     d = datetime.datetime.strptime('2018-04-01', '%Y-%m-%d')
     for t in range(0,1):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
+        sql='''ADD JAR /opt/cloudera/parcels/CDH-5.13.0-1.cdh5.13.0.p0.29/jars/hive-hcatalog-core-1.1.0-cdh5.13.0.jar;'''
+        result = hive_client.action(sql)
         sql = '''
       select * from(
 select front.server,front.id, front.mean,front.xiuwei,front.xiulian,front.equip_score, behind.sum_ability from(
