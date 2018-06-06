@@ -202,12 +202,83 @@ if __name__ == '__main__':
     for t in range(0,1):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
-                        select * from qn_guanning.guanninggamewithfeature 
+                        
+select * from(
+select front.server,front.id, front.mean,front.xiuwei,front.xiulian,front.equip_score, behind.sum_ability from(
+select * from (
+select fff.server, fff.id, ffmean, ffff.xiuwei, ffff.xiulian,ffff.equip_score from(
+select * from (
+select server,id,mean,rank() over(partition by f.server,f.id order by f.rank desc)rank_id from(
+select bbb.server,aaa.id,aaa.mean, 1 as rank from(
+select * from(
+SELECT id,avg(total_score) AS mean FROM (
+SELECT server,time,id,total_score,rank() OVER ( PARTITION BY a.server,a.id ORDER BY a.time) AS temp from (
+SELECT server,time,id,total_score FROM qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00'and grade >= 60 AND grade<=69 ORDER BY id,time) AS a) 
+AS b GROUP BY b.id)as aa)aaa
+join(
+select server,id from(
+select server,id,time,rank()over(partition by a2.id order by time desc)as time_rank from(
+select server,time,id from qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00'and grade >= 60 AND grade<=69)as a2 order by id,server)as b2 where time_rank=1)bbb on (bbb.id = aaa.id)
+union all
+select bbb.server,aaa.id,aaa.mean, 2 as rank from(
+select * from(
+SELECT id,avg(total_score) AS mean FROM (
+SELECT server,time,id,total_score,rank() OVER ( PARTITION BY a.server,a.id ORDER BY a.time) AS temp from (
+SELECT server,time,id,total_score FROM qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00'and grade >= 70 AND grade<=89 ORDER BY id,time) AS a) 
+AS b GROUP BY b.id)as aa)aaa
+join(
+select server,id from(
+select server,id,time,rank()over(partition by a2.id order by time desc)as time_rank from(
+select server,time,id from qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00'and grade >= 70 AND grade<=89)as a2 order by id,server)as b2 where time_rank=1)bbb on (bbb.id = aaa.id)
+union all
+select bbb.server,aaa.id,aaa.mean, 3 as rank from(
+select * from(
+SELECT id,avg(total_score) AS mean FROM (
+SELECT server,time,id,total_score,rank() OVER ( PARTITION BY a.server,a.id ORDER BY a.time) AS temp from (
+SELECT server,time,id,total_score FROM qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00'and grade >= 90 AND grade<=109 ORDER BY id,time) AS a) 
+AS b GROUP BY b.id)as aa)aaa
+join(
+select server,id from(
+select server,id,time,rank()over(partition by a2.id order by time desc)as time_rank from(
+select server,time,id from qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00'and grade >= 90 AND grade<=109)as a2 order by id,server)as b2 where time_rank=1)bbb on (bbb.id = aaa.id)
+union all
+select bbb.server,aaa.id,aaa.mean, 4 as rank from(
+select * from(
+SELECT id,avg(total_score) AS mean FROM (
+SELECT server,time,id,total_score,rank() OVER ( PARTITION BY a.server,a.id ORDER BY a.time) AS temp from (
+SELECT server,time,id,total_score FROM qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00' and grade >= 110 AND grade<=129  ORDER BY id,time) AS a) 
+AS b GROUP BY b.id)as aa)aaa
+join(
+select server,id from(
+select server,id,time,rank()over(partition by a2.id order by time desc)as time_rank from(
+select server,time,id from qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00' and grade >= 110 AND grade<=129 )as a2 order by id,server)as b2 where time_rank=1)bbb on (bbb.id = aaa.id)
+union all
+select bbb.server,aaa.id,aaa.mean, 5 as rank from(
+select * from(
+SELECT id,avg(total_score) AS mean FROM (
+SELECT server,time,id,total_score,rank() OVER ( PARTITION BY a.server,a.id ORDER BY a.time) AS temp from (
+SELECT server,time,id,total_score FROM qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00'and grade >= 130 AND grade<=150 ORDER BY id,time) AS a) 
+AS b GROUP BY b.id)as aa)aaa
+join(
+select server,id from(
+select server,id,time,rank()over(partition by a2.id order by time desc)as time_rank from(
+select server,time,id from qndb.h_guanning_result WHERE time > '2018-04-22 00:00:00'and grade >= 130 AND grade<=150)as a2 order by id,server)as b2 where time_rank=1)bbb on (bbb.id = aaa.id)) as f order by id, server)as fina where rank_id = 1) fff
+join(
+select * from(
+select id, xiuwei,xiulian,equip_score,rank() over (partition by a.id order by a.time desc) as rank_time from( 
+SELECT time,id,xiuwei,xiulian,equip_score from qndb.h_guanning_result where time > '2018-04-22') as a) as b where rank_time = 1)ffff on (fff.id = ffff.id)) as l)front
+left join(
+select * from(
+select a.sum_ability, a.role_id from(
+select ability.sum_ability,ability.role_id, row_number() over (partition by ability.role_id order by ability.ds desc) as time_rank from(
+select advanced_skill+banghuifabao+banghuijineng+banghuikangxing+base_reforce+chenghao+chuanjiabao+chuzhanlingshou+equip_skill+fangwunengli+futilingshou
++other_attributes+qianshi+shenbing+shimenmiji+shizhiling+wenshi+xiuchi+xiulian+xiushen+xiuwei+xiuxing+zaoshenlifo as sum_ability, role_id, ds
+from qn_src.h_player_capability_new where ds >'2018-05-11' order by role_id)as ability)as a where time_rank =1)as asdf)behind on (behind.role_id = front.id))as fina_gn 
 
                       '''
         result = hive_client.query(sql)
         print t
-        f=open('guanninggamewithfeatureV2.txt','a+')
+        f=open('lihaoV2.txt','a+')
         f.write('\n'.join(['\t'.join([str(y) for y in x]) for x in result]))
         f.write('\n')
         f.close()
