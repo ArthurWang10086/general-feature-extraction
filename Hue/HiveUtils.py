@@ -202,11 +202,10 @@ if __name__ == '__main__':
     for t in range(0,1):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
-                        
-select * from(
+      select * from(
 select front.server,front.id, front.mean,front.xiuwei,front.xiulian,front.equip_score, behind.sum_ability from(
 select * from (
-select fff.server, fff.id, ffmean, ffff.xiuwei, ffff.xiulian,ffff.equip_score from(
+select fff.server, fff.id, fff.mean, ffff.xiuwei, ffff.xiulian,ffff.equip_score from(
 select * from (
 select server,id,mean,rank() over(partition by f.server,f.id order by f.rank desc)rank_id from(
 select bbb.server,aaa.id,aaa.mean, 1 as rank from(
@@ -273,8 +272,7 @@ select a.sum_ability, a.role_id from(
 select ability.sum_ability,ability.role_id, row_number() over (partition by ability.role_id order by ability.ds desc) as time_rank from(
 select advanced_skill+banghuifabao+banghuijineng+banghuikangxing+base_reforce+chenghao+chuanjiabao+chuzhanlingshou+equip_skill+fangwunengli+futilingshou
 +other_attributes+qianshi+shenbing+shimenmiji+shizhiling+wenshi+xiuchi+xiulian+xiushen+xiuwei+xiuxing+zaoshenlifo as sum_ability, role_id, ds
-from qn_src.h_player_capability_new where ds >'2018-05-11' order by role_id)as ability)as a where time_rank =1)as asdf)behind on (behind.role_id = front.id))as fina_gn 
-
+from qn_src.h_player_capability_new where ds >'2018-05-11' order by role_id)as ability)as a where time_rank =1)as asdf)behind on (behind.role_id = front.id))as fina_gn
                       '''
         result = hive_client.query(sql)
         print t
