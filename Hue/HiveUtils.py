@@ -202,7 +202,7 @@ if __name__ == '__main__':
     for t in range(0,1):
         date = (d+datetime.timedelta(t)).strftime('%Y-%m-%d')
         sql = '''
-                  select * from lihao '''
+                  select * from qn_guanning.lihao '''
         result = hive_client.query(sql)
         print t
         f=open('lihaoV2.txt','a+')
